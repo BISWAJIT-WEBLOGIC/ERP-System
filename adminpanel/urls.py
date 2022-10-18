@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path ,include
-from  .views import Home,LoginView,LogoutView,AddCategory,AddItem
+from  .views import Home,LoginView,LogoutView,AddCategory,AddItem ,password_reset_request
 from functools import wraps
 from django.http import HttpResponseRedirect
 
@@ -27,5 +27,5 @@ urlpatterns = [
     path('add_category', AddCategory.as_view(), name='add-category'),
     path('add_item', AddItem.as_view(), name='add-item'),
     # path('wizard/', anonymous_required('login')(LoginView.as_view())),
-    
+    path("password_reset", password_reset_request, name="password_reset")
 ]
