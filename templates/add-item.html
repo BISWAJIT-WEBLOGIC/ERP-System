@@ -1,0 +1,205 @@
+{% extends "base.html" %}
+{% block content %}
+{% load static %}
+<!-- Right sidebar Start-->
+<div class="right-sidebar" id="right_side_bar">
+    <div>
+        <div class="container p-0">
+            <div class="modal-header p-l-20 p-r-20">
+                <div class="col-sm-8 p-0">
+                    <h6 class="modal-title font-weight-bold">FRIEND LIST</h6>
+                </div>
+                <div class="col-sm-4 text-right p-0"><i class="mr-2" data-feather="settings"></i></div>
+            </div>
+        </div>
+        <div class="friend-list-search mt-0">
+            <input type="text" placeholder="search friend"><i class="fa fa-search"></i>
+        </div>
+        <div class="p-l-30 p-r-30">
+            <div class="chat-box">
+                <div class="people-list friend-list">
+                    <ul class="list">
+                        <li class="clearfix"><img class="rounded-circle user-image" src="images/dashboard/user.png"
+                                alt="">
+                            <div class="status-circle online"></div>
+                            <div class="about">
+                                <div class="name">Vincent Porter</div>
+                                <div class="status"> Online</div>
+                            </div>
+                        </li>
+                        <li class="clearfix"><img class="rounded-circle user-image" src="images/dashboard/user1.jpg"
+                                alt="">
+                            <div class="status-circle away"></div>
+                            <div class="about">
+                                <div class="name">Ain Chavez</div>
+                                <div class="status"> 28 minutes ago</div>
+                            </div>
+                        </li>
+                        <li class="clearfix"><img class="rounded-circle user-image" src="images/dashboard/user2.jpg"
+                                alt="">
+                            <div class="status-circle online"></div>
+                            <div class="about">
+                                <div class="name">Kori Thomas</div>
+                                <div class="status"> Online</div>
+                            </div>
+                        </li>
+                        <li class="clearfix"><img class="rounded-circle user-image" src="images/dashboard/user3.jpg"
+                                alt="">
+                            <div class="status-circle online"></div>
+                            <div class="about">
+                                <div class="name">Erica Hughes</div>
+                                <div class="status"> Online</div>
+                            </div>
+                        </li>
+                        <li class="clearfix"><img class="rounded-circle user-image"
+                                src="{% static 'images/dashboard/man.png' %}" alt="">
+                            <div class="status-circle offline"></div>
+                            <div class="about">
+                                <div class="name">Ginger Johnston</div>
+                                <div class="status"> 2 minutes ago</div>
+                            </div>
+                        </li>
+                        <li class="clearfix"><img class="rounded-circle user-image" src="images/dashboard/user5.jpg"
+                                alt="">
+                            <div class="status-circle away"></div>
+                            <div class="about">
+                                <div class="name">Prasanth Anand</div>
+                                <div class="status"> 2 hour ago</div>
+                            </div>
+                        </li>
+                        <li class="clearfix"><img class="rounded-circle user-image" src="images/dashboard/designer.jpg"
+                                alt="">
+                            <div class="status-circle online"></div>
+                            <div class="about">
+                                <div class="name">Hileri Jecno</div>
+                                <div class="status"> Online</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Right sidebar Ends-->
+
+<div class="page-body">
+
+    <!-- Container-fluid starts-->
+    <div class="container-fluid">
+        <div class="page-header">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="page-header-left">
+                        <h3>Add Products
+                            <small>Bigdeal Admin panel</small>
+                        </h3>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <ol class="breadcrumb pull-right">
+                        <li class="breadcrumb-item"><a href="index.html"><i data-feather="home"></i></a></li>
+                        <li class="breadcrumb-item">Digital</li>
+                        <li class="breadcrumb-item active">Add Product</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Container-fluid Ends-->
+
+    <!-- Container-fluid starts-->
+    <div class="container-fluid">
+        <div class="row product-adding">
+            <div class="col-xl-11">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>General</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="digital-add needs-validation">
+                            <form method="post" action="add_item" enctype="multipart/form-data" >
+                                {% csrf_token %}
+                                <div class="form-group">
+                                    <label for="validationCustomtitle" class="col-form-label pt-0"><span>*</span>
+                                        Name</label>
+                                    <input class="form-control" name='product_name' id="validationCustomtitle"
+                                        type="text" required="">
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-form-label"><span>*</span> Categories</label>
+                                    <select class="custom-select" required="" name="categories">
+                                        <option value="">--Select--</option>
+                                        {% for category in all_category %}
+                                        <option value="{{category.category_ID}}">{{category}}</option>
+                                        {% endfor %}
+
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-form-label"><span>*</span> Status</label>
+                                    <select class="custom-select" required="" name="status">
+                                        <option value="">--Select--</option>
+                                        <option value="A">Active</option>
+                                        <option value="I">Inactive</option>
+                                    </select>
+                                </div>
+                                <label class="col-form-label pt-0"> Product Upload</label>
+                                <input type="file" name="user_img">
+                                <!-- <div class="form-group mb-0">
+                                    <div class="product-buttons text-center"> -->
+                                <input class="btn btn-primary " type="submit" value="Update">
+                                <!-- <button type="submit" class="btn btn-primary">Add</button> -->
+                                <button type="button" class="btn btn-light">Discard</button>
+                                <!-- </div>
+                                </div> -->
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="col-xl-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Add Description</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="digital-add needs-validation">
+                            <div class="form-group mb-0">
+                                <div class="description-sm">
+                                    <textarea id="editor1" name="editor1" cols="10" rows="4"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Meta Data</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="digital-add needs-validation">
+                            <div class="form-group">
+                                <label for="validationCustom05" class="col-form-label pt-0"> Meta Title</label>
+                                <input class="form-control" id="validationCustom05" type="text" required="">
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label">Meta Description</label>
+                                <textarea rows="4" cols="12"></textarea>
+                            </div>
+                            <div class="form-group mb-0">
+                                <div class="product-buttons text-center">
+                                    <button type="button" class="btn btn-primary">Add</button>
+                                    <button type="button" class="btn btn-light">Discard</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+        </div>
+    </div>
+    <!-- Container-fluid Ends-->
+
+</div>
+{% endblock content %}
