@@ -1,17 +1,27 @@
-# from django.db import models
+from django.db import models
+from django.conf import settings
 
-# STOCK_CHOICES = (
-#     ("A", "Active"),
-#     ("I", "Inactive")
-# )
+STOCK_CHOICES = (
+    ("A", "Active"),
+    ("I", "Inactive")
+)
 
-# # Create your models here.
-# class Product(models.Model):
-#     PRD_ID = models.BigAutoField("ProductID", primary_key=True)
-#     PRD_NM = models.CharField("ProductName",max_length=255, )
-#     stock = models.CharField(
-#         "ProductStock", max_length=2, choices=STOCK_CHOICES, default="A")
-#     image = models.ImageField("ProductSImage")
+class Product_Category(models.Model):
+    category_ID = models.BigAutoField( primary_key=True)
+    category_name = models.CharField(max_length=255 )
     
-#     def __str__(self):
-#         return self.PRD_NM
+    def __str__(self):
+        return self.category_name
+
+# Create your models here.
+class Product(models.Model):
+    Product_ID = models.BigAutoField( primary_key=True)
+    Product_Name = models.CharField(max_length=255 )
+    category = models.ForeignKey(Product_Category,null=True, blank=True,on_delete=models.CASCADE)
+    Product_Stock = models.CharField(
+         max_length=2, choices=STOCK_CHOICES, default="A")
+    image = models.ImageField("Product Image",upload_to='inventory')
+    
+    def __str__(self):
+        return self.Product_Name
+

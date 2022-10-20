@@ -1,3 +1,83 @@
+<style>
+    .wrapper {
+  margin: 0 auto;
+  /* padding: 40px; */
+  max-width: 800px;
+  
+}
+
+.table {
+  /* margin: 0 0 40px 0; */
+  width: 100%;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  display: table;
+}
+@media screen and (max-width: 580px) {
+  .table {
+    display: block;
+  }
+}
+
+.rows {
+  display: table-row;
+  background: #f6f6f6;
+  
+  
+}
+.rows:nth-of-type(odd) {
+  background: #e9e9e9;
+}
+.rows.header {
+  font-weight: 1000;
+  color: #ffffff;
+  background: #30b4dc;
+}
+.h_cell{
+padding: 6px 12px;
+  display: table-cell;
+  padding-left: 40%;
+}
+@media screen and (max-width: 580px) {
+  .rows {
+    padding: 14px 0 7px;
+    display: block;
+  }
+  .rows.header {
+    padding: 0;
+    height: 6px;
+  }
+  .rows.header .cell {
+    display: none;
+  }
+  .rows .cell {
+    margin-bottom: 10px;
+  }
+  .rows .cell:before {
+    margin-bottom: 3px;
+    content: attr(data-title);
+    min-width: 98px;
+    font-size: 10px;
+    line-height: 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #969696;
+    display: block;
+  }
+}
+
+.cell {
+  padding: 6px 12px;
+  display: table-cell;
+  padding-left: 42%;
+  
+}
+@media screen and (max-width: 580px) {
+  .cell {
+    padding: 2px 16px;
+    display: block;
+  }
+}
+</style>
 {% extends "base.html" %}
 {% block content %}
 {% load static %}
@@ -131,28 +211,48 @@
                                                 aria-label="Close"><span aria-hidden="true">×</span></button>
                                         </div>
                                         <div class="modal-body">
-                                            <form class="needs-validation">
+                                            <form class="needs-validation" method="post" action="add_category">
+                                                {% csrf_token %}
                                                 <div class="form">
                                                     <div class="form-group">
-                                                        <label for="validationCustom01" class="mb-1">Category Name
-                                                            :</label>
-                                                        <input class="form-control" id="validationCustom01" type="text">
+                                                        <label for="validationCustom01" class="mb-1">
+                                                            Category Name:
+                                                        </label>
+                                                        <input class="form-control" name="category_name" id="validationCustom01" type="text">
                                                     </div>
-                                                    <div class="form-group mb-0">
+                                                    <!-- <div class="form-group mb-0">
                                                         <label for="validationCustom02" class="mb-1">Category Image
                                                             :</label>
                                                         <input class="form-control" id="validationCustom02" type="file">
-                                                    </div>
+                                                    </div> -->
+                                                
+                                                    <button class="btn btn-primary" type="submit">Save</button>
+                                                    <button class="btn btn-secondary" type="button"
+                                                        data-dismiss="modal">Close</button>
                                                 </div>
                                             </form>
                                         </div>
-                                        <div class="modal-footer">
-                                            <button class="btn btn-primary" type="button">Save</button>
-                                            <button class="btn btn-secondary" type="button"
-                                                data-dismiss="modal">Close</button>
-                                        </div>
+                                        
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                        <div class="wrapper">
+
+                            <div class="table">
+                                <div class="rows header">
+                                    <div class="h_cell">
+                                        Category Name
+                                    </div>
+                                </div>
+                                {% for category in all_category %}
+                                 <div class="rows">
+                                    <div class="cell" data-title="Name">
+                                        {{category}}
+                                    </div>
+                                </div>
+                                {% endfor %}
+                                
                             </div>
                         </div>
                         <div class="table-responsive">

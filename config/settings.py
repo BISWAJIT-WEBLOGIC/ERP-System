@@ -136,6 +136,9 @@ USE_I18N = True
 USE_TZ = True
 
 
+MEDIA_URL = 'media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 # Static files (CSS, JavaScript, Images)
 
 STATIC_URL = 'static/'
@@ -233,9 +236,25 @@ LOGGING = {
             'formatter': 'file',
             'delay': False
         },
+        'file_inventory': {
+            'level': 'INFO',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': 'inventory.log',
+            'maxBytes': 1048576,  # 20 MB = 20971520 Bytes
+            'backupCount': 2,
+            'formatter': 'file',
+            'delay': False
+        },
     },
     'loggers': {
         'login_authentication': {
+            'level': 'INFO',
+            'handlers': ['file_login'],
+            'propagate': True,
+        },
+    },
+    'loggers': {
+        'inventory': {
             'level': 'INFO',
             'handlers': ['file_login'],
             'propagate': True,

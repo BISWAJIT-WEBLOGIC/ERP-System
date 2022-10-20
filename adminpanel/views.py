@@ -100,6 +100,7 @@ def password_reset_request(request):
                     except BadHeaderError:
                         return HttpResponse('Invalid header found.')
             messages.error(request, 'An invalid email has been entered.')
+            return redirect ('password_reset')
 
 
     password_reset_form = PasswordResetForm()

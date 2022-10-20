@@ -24,8 +24,5 @@ urlpatterns = [
     path('', Home.as_view(), name='home'),
     path('login', LoginView.as_view(), name='login'),
     path('logout', LogoutView.as_view(), name='logout'),
-    path('add_category', AddCategory.as_view(), name='add-category'),
-    path('add_item', AddItem.as_view(), name='add-item'),
-    # path('wizard/', anonymous_required('login')(LoginView.as_view())),
     path("password_reset", password_reset_request, name="password_reset")
 ]
