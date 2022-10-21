@@ -32,6 +32,7 @@ class Home(View):
     
     @method_decorator(login_required())
     def get(self, request, *args, **kwargs):
+        request.user.has_perm('machine.change_machine', obj=None)
         return render(request, "index.html")
     
 class AddCategory(View):

@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/all_list.css' %}">
+
+<style>
+	.status_A{
+    color: rgb(8, 244, 8);
+}
+
+.status_I{
+    color: red;
+	
+}
+</style>
+<body>
+
+	<section class="ftco-section">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-md-6 text-center">
+					<h2 class="heading-section">Machine List</h2>
+				</div>
+			</div>
+			<div class="row" style="margin-left: 100px;">
+				<div class="col-md-9">
+					<div class="">
+						<table class="table table-responsive-m">
+							<thead>
+								<tr >
+                                    <th style="font-size: 20px;">Registration_no</th>
+									<th style="font-size: 20px;">Name</th>
+									<th style="font-size: 20px;">Current Temperature</th>
+								</tr>
+							</thead>
+							<tbody>
+
+								{% for machine in all_machine %}
+
+								<tr class="alert" role="alert">
+									<td>{{machine.machine_registration_no}}</td>
+									<td>{{machine.machine_name}}</td>
+									<td>{{machine.machine_current_temperature}}</td>
+
+								{% endfor %}
+
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<script src="{% static 'js/all_list/jquery.min.js' %}"></script>
+	<script src="{% static 'js/all_list/popper.js' %}"></script>
+
+	<script src="{% static 'js/all_list/bootstrap.min.js' %}"></script>
+	<script src="{% static 'js/all_list/main.js' %}"></script>
+
+	{% comment %}
+	<!-- <script src="js/jquery.min.js"></script>
+  <script src="js/popper.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/main.js"></script> --> {% endcomment %}
+	{% endblock content %}

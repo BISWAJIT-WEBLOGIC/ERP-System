@@ -41,6 +41,8 @@
 
     <!-- App css-->
     <link rel="stylesheet" type="text/css" href="{% static 'css/admin.css' %}">
+
+
 </head>
 
 <body>
@@ -181,20 +183,17 @@
                             <ul class="sidebar-submenu">
                                 <li>
                                     <a href="#"><i class="fa fa-circle"></i>
-                                        <a href="{% url 'add-item' %}">Product List</a>
+                                        <a href="">Product<i class="fa fa-angle-right pull-right"></i></a>
                                     </a>
-                                    <!-- <ul class="sidebar-submenu">
-                                        <li><a href="category.html"><i class="fa fa-circle"></i>Category</a></li>
-                                        <li><a href="category-sub.html"><i class="fa fa-circle"></i>Sub Category</a></li>
-                                        <li><a href="product-list.html"><i class="fa fa-circle"></i>Product List</a></li>
-                                        <li><a href="product-detail.html"><i class="fa fa-circle"></i>Product Detail</a></li>
-                                        <li><a href="add-product.html"><i class="fa fa-circle"></i>Add Product</a></li>
-                                    </ul> -->
+                                    <ul class="sidebar-submenu">
+                                        <li><a href="{% url 'list-product' %}"><i class="fa fa-circle"></i>Product
+                                                List</a></li>
+                                        <li><a href="{% url 'add-product' %}"><i class="fa fa-circle"></i>Add
+                                                Product</a></li>
+                                    </ul>
                                 </li>
                                 <li>
                                     <a href="#"><i class="fa fa-circle"></i>
-                                        {% comment %} <span>Category</span> <i class="fa fa-angle-right pull-right"></i>
-                                        {% endcomment %}
                                         <a href="{% url 'add-category' %}">Category</a>
                                     </a>
                                     <!-- <ul class="sidebar-submenu">
@@ -206,14 +205,14 @@
                                 </li>
                             </ul>
                         </li>
-                        <li><a class="sidebar-header" href="#"><i data-feather="dollar-sign"></i><span>Sales</span><i
+                        <li><a class="sidebar-header" href="#"><i data-feather="dollar-sign"></i><span>Machine</span><i
                                     class="fa fa-angle-right pull-right"></i></a>
                             <ul class="sidebar-submenu">
-                                <li><a href="order.html"><i class="fa fa-circle"></i>Orders</a></li>
-                                <li><a href="transactions.html"><i class="fa fa-circle"></i>Transactions</a></li>
+                                <li><a href="{% url 'add-machine' %}"><i class="fa fa-circle"></i>Add Machine</a></li>
+                                <li><a href="{% url 'list-machine' %}"><i class="fa fa-circle"></i>Machine List</a></li>
                             </ul>
                         </li>
-                        <li><a class="sidebar-header" href="#"><i data-feather="tag"></i><span>Coupons</span><i
+                        {% comment %} <li><a class="sidebar-header" href="#"><i data-feather="tag"></i><span>Coupons</span><i
                                     class="fa fa-angle-right pull-right"></i></a>
                             <ul class="sidebar-submenu">
                                 <li><a href="coupon-list.html"><i class="fa fa-circle"></i>List Coupons</a></li>
@@ -235,22 +234,22 @@
                                 <li><a href="menu-list.html"><i class="fa fa-circle"></i>Menu Lists</a></li>
                                 <li><a href="create-menu.html"><i class="fa fa-circle"></i>Create Menu</a></li>
                             </ul>
-                        </li>
+                        </li> {% endcomment %}
                         <li><a class="sidebar-header" href="#"><i data-feather="user-plus"></i><span>Users</span><i
                                     class="fa fa-angle-right pull-right"></i></a>
                             <ul class="sidebar-submenu">
-                                <li><a href="user-list.html"><i class="fa fa-circle"></i>User List</a></li>
-                                <li><a href="create-user.html"><i class="fa fa-circle"></i>Create User</a></li>
+                                <li><a href="#"><i class="fa fa-circle"></i>User List</a></li>
+                                <li><a href="#"><i class="fa fa-circle"></i>Create User</a></li>
                             </ul>
                         </li>
                         <li><a class="sidebar-header" href="#"><i data-feather="users"></i><span>Vendors</span><i
                                     class="fa fa-angle-right pull-right"></i></a>
                             <ul class="sidebar-submenu">
-                                <li><a href="list-vendor.html"><i class="fa fa-circle"></i>Vendor List</a></li>
-                                <li><a href="create-vendors.html"><i class="fa fa-circle"></i>Create Vendor</a></li>
+                                <li><a href="#"><i class="fa fa-circle"></i>Vendor List</a></li>
+                                <li><a href="#"><i class="fa fa-circle"></i>Create Vendor</a></li>
                             </ul>
                         </li>
-                        <li><a class="sidebar-header" href="#"><i data-feather="chrome"></i><span>Localization</span><i
+                        {% comment %} <li><a class="sidebar-header" href="#"><i data-feather="chrome"></i><span>Localization</span><i
                                     class="fa fa-angle-right pull-right"></i></a>
                             <ul class="sidebar-submenu">
                                 <li><a href="translations.html"><i class="fa fa-circle"></i>Translations</a></li>
@@ -265,8 +264,8 @@
                             <ul class="sidebar-submenu">
                                 <li><a href="profile.html"><i class="fa fa-circle"></i>Profile</a></li>
                             </ul>
-                        </li>
-                        <li><a class="sidebar-header" href="invoice.html"><i
+                        </li> {% endcomment %}
+                        <li><a class="sidebar-header" href="#"><i
                                     data-feather="archive"></i><span>Invoice</span></a>
                         </li>
                         <li><a class="sidebar-header" href="{% url 'logout' %}"><i
@@ -358,16 +357,20 @@
                 </div>
             </div>
 
+
+            <!-- Right sidebar Ends-->
+
+
             <body>
-                    {% if messages %} 
-                    {% for message in messages %}
-                    <div class="alert alert-{{ message.tags }}">
-                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                        {{ message|safe }}
-                    </div>
-                    {% endfor %} 
-                    {% endif %} 
-                    {% block content %}{% endblock content %}
+                {% if messages %}
+                {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    {{ message|safe }}
+                </div>
+                {% endfor %}
+                {% endif %}
+                {% block content %}{% endblock content %}
             </body>
 
 
@@ -463,6 +466,9 @@
     <script src="{% static 'vendor/ckeditor/styles.js' %}"></script>
     <script src="{% static 'vendor/ckeditor/adapters/jquery.js' %}"></script>
     <script src="{% static 'vendor/ckeditor/ckeditor.custom.js' %}"></script>
+
+
+
 
 
 

@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/all_list.css' %}">
+
+<style>
+	.status_A{
+    color: rgb(8, 244, 8);
+}
+
+.status_I{
+    color: red;
+	
+}
+</style>
+<body>
+
+	<section class="ftco-section">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-md-6 text-center">
+					<h2 class="heading-section">Product List</h2>
+				</div>
+			</div>
+			<div class="row" style="margin-left: 100px;">
+				<div class="col-md-12">
+					<div class="">
+						<table class="table table-responsive-xl">
+							<thead>
+								<tr >
+									<th style="font-size: 20px;">Image</th>
+									<th style="font-size: 20px;">Name</th>
+									<th style="font-size: 20px;">Category</th>
+									<th style="font-size: 20px;">Available Quantity</th>
+									<th style="font-size: 20px;">Product Price</th>
+									<th style="font-size: 20px;">Status</th>
+								</tr>
+							</thead>
+							<tbody>
+
+								{% for category in all_category %}
+
+								<tr class="alert" role="alert">
+									<td><a href="{{ category.image.url }}"><img class="img" src="{{ category.image.url }}"></a> </td>
+									<td>{{category.Product_Name}}</td>
+									<td>{{category.category}}</td>
+									<td>{{category.available_quantity}}</td>
+									<td>{{category.product_price}}</td>
+									{% if category.Product_Stock == 'A' %}
+									<td class="status_{{category.Product_Stock}}">Active</td>
+									{% else %}
+									<td class="status_{{category.Product_Stock}}">Inactive</td>
+									{% endif %}	
+								</tr>
+
+								{% endfor %}
+
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<script src="{% static 'js/all_list/jquery.min.js' %}"></script>
+	<script src="{% static 'js/all_list/popper.js' %}"></script>
+
+	<script src="{% static 'js/all_list/bootstrap.min.js' %}"></script>
+	<script src="{% static 'js/all_list/main.js' %}"></script>
+
+	{% comment %}
+	<!-- <script src="js/jquery.min.js"></script>
+  <script src="js/popper.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/main.js"></script> --> {% endcomment %}
+	{% endblock content %}

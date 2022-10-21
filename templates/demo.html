@@ -1,0 +1,20 @@
+
+<div class="table-wrapper">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Permissions</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+            {% for perm in permissions%}
+            <tr>
+                <td id="perm">{{perm}}</td>
+                <td><input type="checkbox" name="status" id="status" onclick="ChangeUserPermissions(this,userid='{{userdata.id}}',permission='{{perm}}')"></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
