@@ -6,12 +6,12 @@ from django.contrib.auth import views as auth_views #import this
 from django.urls import reverse_lazy
 
 
-handler404 = 'adminpanel.views.page_not_found'
+handler404 = 'adminpanel.adminpanel.views.page_not_found'
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('adminpanel/', include('adminpanel.urls')),
-    path('inventory/', include('app.inventory.urls')),
-    path('machine/', include('app.machine.urls')),
+    path('adminpanel/', include('adminpanel.adminpanel.urls')),
+#     path('inventory/', include('adminpanel.inventory.urls')),
+#     path('machine/', include('adminpanel.machine.urls')),
     path('api/', include('api.login_authentication.urls')),
     # path('', include('user.urls')),
     path('password_reset/done/', auth_views.PasswordResetDoneView.as_view(template_name='password_reset_done.html'), name='password_reset_done'),

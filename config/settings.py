@@ -39,11 +39,11 @@ INSTALLED_APPS = [
     
     
     # install app
-    'adminpanel',
+    'adminpanel.adminpanel',
     'api.login_authentication',
-    'app.customer',
-    'app.machine',
-    'app.inventory',
+    'adminpanel.customer',
+    'adminpanel.machine',
+    'adminpanel.inventory',
     
     
     #rest_framework app
