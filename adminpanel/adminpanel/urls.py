@@ -3,14 +3,21 @@ from django.urls import path ,include
 from  .views import Home,LoginView,LogoutView,AddCategory,AddItem ,password_reset_request
 from adminpanel.inventory.views import AddProductsCategory ,AddProducts ,ViewProducts ,EditUserView
 from adminpanel.machine.views import AddMachine , ListMachine
+from adminpanel.account.views import ListUser , CreateUser
 
 handler404 = 'adminpanel.adminpanel.views.page_not_found'
 
 urlpatterns = [
+
     path('', Home.as_view(), name='home'),
     path('login', LoginView.as_view(), name='login'),
     path('logout', LogoutView.as_view(), name='logout'),
     path("password_reset", password_reset_request, name="password_reset"),
+
+         #..............account................
+
+    path('list_user', ListUser.as_view(), name='list-user'),
+    path('add_user', CreateUser.as_view(), name='add-user'),
 
     # ...............inventory....................
     path('add_category', AddProductsCategory.as_view(), name='add-category'),

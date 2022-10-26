@@ -4,140 +4,55 @@
 {% block content %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/all_list.css' %}">
 
+<style>
+	.status_A {
+		color: rgb(8, 244, 8);
+	}
+
+	.status_I {
+		color: red;
+
+	}
+</style>
+
 <body>
 
 	<section class="ftco-section">
 		<div class="container">
 			<div class="row justify-content-center">
-				<div class="col-md-6 text-center mb-5">
+				<div class="col-md-6 text-center">
 					<h2 class="heading-section">User List</h2>
 				</div>
 			</div>
 			<div class="row" style="margin-left: 100px;">
 				<div class="col-md-12">
-					<div class="table-wrap">
+					<div class="">
 						<table class="table table-responsive-xl">
 							<thead>
 								<tr>
-									<th>&nbsp;</th>
-									<th>Email</th>
-									<th>Username</th>
-									<th>Status</th>
-									<th>&nbsp;</th>
+									<th style="font-size: 18px;">First Name</th>
+									<th style="font-size: 18px;">Last Name</th>
+									<th style="font-size: 18px;">Email</th>
+									<th style="font-size: 18px;">Phone Number</th>
+									<th style="font-size: 18px;">Address</th>
+									<th style="font-size: 18px;">Designation</th>
 								</tr>
 							</thead>
 							<tbody>
+
+								{% for users in users %}
+
 								<tr class="alert" role="alert">
-									<td>
-										<label class="checkbox-wrap checkbox-primary">
-											<input type="checkbox" checked>
-											<span class="checkmark"></span>
-										</label>
-									</td>
-									<td class="d-flex align-items-center">
-										<div class="img" src="{% static 'images/layout-2/logo/logo.jpeg' %}"></div>
-										<div class="pl-3 email">
-											<span>markotto@email.com</span>
-											<span>Added: 01/03/2020</span>
-										</div>
-									</td>
-									<td>Markotto89</td>
-									<td class="status"><span class="active">Active</span></td>
-									<td>
-										<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-											<span aria-hidden="true"><i class="fa fa-close"></i></span>
-										</button>
-									</td>
+									<td>{{users.first_name}}</td>
+									<td>{{users.last_name}}</td>
+									<td>{{users.email}}</td>
+									<td>{{users.ph_number}}</td>
+									<td>{{users.address}}</td>
+									<td>{{users.designation}}</td>
 								</tr>
-								<tr class="alert" role="alert">
-									<td>
-										<label class="checkbox-wrap checkbox-primary">
-											<input type="checkbox">
-											<span class="checkmark"></span>
-										</label>
-									</td>
-									<td class="d-flex align-items-center">
-										<div class="img" style="background-image: url(images/person_2.jpg);"></div>
-										<div class="pl-3 email">
-											<span>jacobthornton@email.com</span>
-											<span>Added: 01/03/2020</span>
-										</div>
-									</td>
-									<td>Jacobthornton</td>
-									<td class="status"><span class="waiting">Waiting for Resassignment</span></td>
-									<td>
-										<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-											<span aria-hidden="true"><i class="fa fa-close"></i></span>
-										</button>
-									</td>
-								</tr>
-								<tr class="alert" role="alert">
-									<td>
-										<label class="checkbox-wrap checkbox-primary">
-											<input type="checkbox">
-											<span class="checkmark"></span>
-										</label>
-									</td>
-									<td class="d-flex align-items-center">
-										<div class="img" style="background-image: url(images/person_3.jpg);"></div>
-										<div class="pl-3 email">
-											<span>larrybird@email.com</span>
-											<span>Added: 01/03/2020</span>
-										</div>
-									</td>
-									<td>Larry_bird</td>
-									<td class="status"><span class="active">Active</span></td>
-									<td>
-										<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-											<span aria-hidden="true"><i class="fa fa-close"></i></span>
-										</button>
-									</td>
-								</tr>
-								<tr class="alert" role="alert">
-									<td>
-										<label class="checkbox-wrap checkbox-primary">
-											<input type="checkbox">
-											<span class="checkmark"></span>
-										</label>
-									</td>
-									<td class="d-flex align-items-center">
-										<div class="img" style="background-image: url(images/person_4.jpg);"></div>
-										<div class="pl-3 email">
-											<span>johndoe@email.com</span>
-											<span>Added: 01/03/2020</span>
-										</div>
-									</td>
-									<td>Johndoe1990</td>
-									<td class="status"><span class="active">Active</span></td>
-									<td>
-										<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-											<span aria-hidden="true"><i class="fa fa-close"></i></span>
-										</button>
-									</td>
-								</tr>
-								<tr class="alert" role="alert">
-									<td class="border-bottom-0">
-										<label class="checkbox-wrap checkbox-primary">
-											<input type="checkbox">
-											<span class="checkmark"></span>
-										</label>
-									</td>
-									<td class="d-flex align-items-center border-bottom-0">
-										<div class="img" style="background-image: url(images/person_1.jpg);"></div>
-										<div class="pl-3 email">
-											<span>garybird@email.com</span>
-											<span>Added: 01/03/2020</span>
-										</div>
-									</td>
-									<td class="border-bottom-0">Garybird_2020</td>
-									<td class="status border-bottom-0"><span class="waiting">Waiting for
-											Resassignment</span></td>
-									<td class="border-bottom-0">
-										<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-											<span aria-hidden="true"><i class="fa fa-close"></i></span>
-										</button>
-									</td>
-								</tr>
+
+								{% endfor %}
+
 							</tbody>
 						</table>
 					</div>

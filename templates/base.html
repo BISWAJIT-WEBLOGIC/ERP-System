@@ -12,6 +12,7 @@
     <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
     <title>Admin</title>
 
+    
     <!-- Google font-->
     <link href="https://fonts.googleapis.com/css?family=Work+Sans:100,200,300,400,500,600,700,800,900" rel="stylesheet">
     <link
@@ -172,7 +173,7 @@
                         <div><img class="img-60 rounded-circle lazyloaded blur-up"
                                 src="{% static 'images/dashboard/man.png' %}" alt="#">
                         </div>
-                        <h6 class="mt-3 f-14">{{ user.get_username }}</h6>
+                        <h6 class="mt-3 f-14">{{ user.get_full_name }}</h6>
                         <!-- <p>Ux Designer</p> -->
                     </div>
                     <ul class="sidebar-menu">
@@ -238,8 +239,8 @@
                         <li><a class="sidebar-header" href="#"><i data-feather="user-plus"></i><span>Users</span><i
                                     class="fa fa-angle-right pull-right"></i></a>
                             <ul class="sidebar-submenu">
-                                <li><a href="#"><i class="fa fa-circle"></i>User List</a></li>
-                                <li><a href="#"><i class="fa fa-circle"></i>Create User</a></li>
+                                <li><a href="{% url 'list-user' %}"><i class="fa fa-circle"></i>User List</a></li>
+                                <li><a href="{% url 'add-user' %}"><i class="fa fa-circle"></i>Create User</a></li>
                             </ul>
                         </li>
                         <li><a class="sidebar-header" href="#"><i data-feather="users"></i><span>Vendors</span><i
@@ -362,14 +363,14 @@
 
 
             <body>
-                {% if messages %}
+                {% comment %} {% if messages %}
                 {% for message in messages %}
                 <div class="alert alert-{{ message.tags }}">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                     {{ message|safe }}
                 </div>
                 {% endfor %}
-                {% endif %}
+                {% endif %} {% endcomment %}
                 {% block content %}{% endblock content %}
             </body>
 
@@ -468,7 +469,7 @@
     <script src="{% static 'vendor/ckeditor/ckeditor.custom.js' %}"></script>
 
 
-
+    
 
 
 

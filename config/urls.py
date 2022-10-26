@@ -11,7 +11,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('adminpanel/', include('adminpanel.adminpanel.urls')),
 #     path('inventory/', include('adminpanel.inventory.urls')),
-#     path('machine/', include('adminpanel.machine.urls')),
+#     path('machine/', include('adminpanel.machine.urls')), 
     path('api/', include('api.login_authentication.urls')),
     # path('', include('user.urls')),
     path('password_reset/done/', auth_views.PasswordResetDoneView.as_view(template_name='password_reset_done.html'), name='password_reset_done'),

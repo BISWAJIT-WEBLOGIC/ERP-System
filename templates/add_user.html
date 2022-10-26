@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+{% block content %}
+{% load static %}
+
+
+<div class="page-body">
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }}">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        {{ message|safe }}
+    </div>
+    {% endfor %}
+    {% endif %}
+    <!-- Container-fluid starts-->
+    <div class="container-fluid">
+        <div class="page-header">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="page-header-left">
+                        <h3>Create User
+                            <small>ERP Admin panel</small>
+                        </h3>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <ol class="breadcrumb pull-right">
+                        <li class="breadcrumb-item"><a href=""><i data-feather="home"></i></a></li>
+                        <li class="breadcrumb-item">Digital</li>
+                        <li class="breadcrumb-item active">Create User</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Container-fluid Ends-->
+
+    <!-- Container-fluid starts-->
+    <div class="container-fluid">
+        <div class="row product-adding">
+            <div class="col-xl-11">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>General</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="digital-add needs-validation">
+                            <form method="post" action="">
+                                {% csrf_token %}
+                                <div class="form-group">
+                                    <label for="validationCustomtitle" class="col-form-label pt-0"><span>*</span>
+                                        User First Name</label>
+                                    <input class="form-control" required name='f_name' id="validationCustomtitle"
+                                        type="text">
+                                </div>
+                                <div class="form-group">
+                                    <label for="validationCustomtitle" class="col-form-label pt-0"><span>*</span>
+                                        User Last Name</label>
+                                    <input class="form-control" required name='l_name' id="validationCustomtitle"
+                                        type="text">
+                                </div>
+                                <div class="form-group">
+                                    <label for="validationCustomtitle" class="col-form-label pt-0"><span>*</span>
+                                        User Email</label>
+                                    <input class="form-control" name='email' id="validationCustomtitle" type="text"
+                                        required="">
+                                </div>
+                                <div class="form-group">
+                                    <label for="validationCustomtitle" class="col-form-label pt-0">
+                                        User Phone Number</label>
+                                    <input class="form-control" name='p_number' id="validationCustomtitle" type="text">
+                                </div>
+                                <div class="form-group">
+                                    <label for="validationCustomtitle" class="col-form-label pt-0">
+                                        User Address</label>
+                                    <input class="form-control" name='address' id="validationCustomtitle" type="text">
+                                </div>
+                                <div class="form-group">
+                                    <label for="validationCustomtitle" class="col-form-label pt-0">
+                                        User Password</label>
+                                    <input required id="password" name="password" type="password" class="form-control"
+                                        placeholder="********">
+                                    <h6 id="error" style="color: red;"></h6>
+                                </div>
+                                <div class="form-group">
+                                    <label for="validationCustomtitle" class="col-form-label pt-0">
+                                        User Confirm Password</label>
+                                    <input required name="re_password" id="c-password" type="password" class="form-control"
+                                        placeholder="Password">
+                                    <h6 id="error" style="color: red;"></h6>
+                                </div>
+                                <div class="form-group mb-0">
+                                    <div class="product-buttons text-center">
+                                        <button id="submit" class="btn btn-primary " onclick="return checkPassword();"
+                                            type="submit">Create</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Container-fluid Ends-->
+
+</div>
+
+
+{% endblock content %}

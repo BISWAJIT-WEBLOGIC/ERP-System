@@ -2,7 +2,7 @@
 from django.shortcuts import render , redirect
 from django.views.generic import View 
 from django.contrib.auth import authenticate , login ,logout
-from django.contrib.auth.models import User
+from adminpanel.account.models import User
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.shortcuts import render 
@@ -53,12 +53,12 @@ class LoginView(View):
             return redirect('home')
     
     def post(self, request):
-        username = request.POST['username']
+        email = request.POST['email']
         password = request.POST['password']
         try:
-            user = authenticate(username=username, password=password)
+            user = authenticate(email=email, password=password)
         except:
-            user = User.objects.filter(username=username, password=password)
+            user = User.objects.filter(username=email, password=password)
         if user is not None:
             if user.is_active:
                 login(request, user)

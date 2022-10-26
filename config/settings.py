@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_truncate',
     
     
     # install app
@@ -44,6 +45,7 @@ INSTALLED_APPS = [
     'adminpanel.customer',
     'adminpanel.machine',
     'adminpanel.inventory',
+    'adminpanel.account',
     
     
     #rest_framework app
@@ -159,6 +161,8 @@ LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'home'
 USER_HOME_URL = 'home'
 
+
+AUTH_USER_MODEL = 'account.User'
 
 # EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 
