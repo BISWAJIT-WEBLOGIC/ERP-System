@@ -4,6 +4,8 @@ from  .views import Home,LoginView,LogoutView,AddCategory,AddItem ,password_rese
 from adminpanel.inventory.views import AddProductsCategory ,AddProducts ,ViewProducts ,EditUserView
 from adminpanel.machine.views import AddMachine , ListMachine
 from adminpanel.account.views import ListUser , CreateUser
+from adminpanel.customer.views import AddCustomer , ListCustomer
+
 
 handler404 = 'adminpanel.adminpanel.views.page_not_found'
 
@@ -29,4 +31,9 @@ urlpatterns = [
 
     path('add_machine', AddMachine.as_view(), name='add-machine'),
     path('list_machine', ListMachine.as_view(), name='list-machine'),
+
+     #..............Customer................
+
+    path('add_customer', AddCustomer.as_view(), name='add-customer'),
+    path('list_customer', ListCustomer.as_view(), name='list-customer'),
 ]

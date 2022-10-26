@@ -1,14 +1,15 @@
-# from django.db import models
+from django.db import models
 
-# # Create your models here.
-# class Customer(models.Model):
-#     PRD_ID = models.BigAutoField("CustomerID", primary_key=True)
-#     CUS_NM = models.CharField("CustomerNmame",max_length=255, db_index=True)
-#     CUS_EM = models.EmailField("CustomereMAIL",max_length=255, db_index=True)
-#     CUS_TOT_PRC_AMT = models.IntegerField("Customertotalpurchaseamount",default=0)
-#     CUS_ADD = models.TextField("Customeraddress",max_length=255),
+
+class Customer(models.Model):
+    customer_Id = models.BigAutoField( primary_key=True)
+    name = models.CharField(max_length=255,)
+    email = models.EmailField(max_length=255, )
+    totalpurchaseamount = models.IntegerField(default=0,blank=True, null=True)
+    ph_number = models.IntegerField( blank=True, null=True,default=None)
+    address = models.TextField( blank=True, null=True)
     
     
-#     def __str__(self):
-#         return self.CUS_NM
+    def __str__(self):
+        return self.name
     

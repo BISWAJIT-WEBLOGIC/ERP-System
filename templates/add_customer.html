@@ -18,7 +18,7 @@
             <div class="row">
                 <div class="col-lg-6">
                     <div class="page-header-left">
-                        <h3>Create User
+                        <h3>Create Customer
                             <small>ERP Admin panel</small>
                         </h3>
                     </div>
@@ -27,7 +27,7 @@
                     <ol class="breadcrumb pull-right">
                         <li class="breadcrumb-item"><a href=""><i data-feather="home"></i></a></li>
                         <li class="breadcrumb-item">Adminpanel</li>
-                        <li class="breadcrumb-item active">Create User</li>
+                        <li class="breadcrumb-item active">Create Customer</li>
                     </ol>
                 </div>
             </div>
@@ -45,54 +45,39 @@
                     </div>
                     <div class="card-body">
                         <div class="digital-add needs-validation">
-                            <form method="post" action="" id ="from1">
+                            <form method="post" action="" id="from1">
                                 {% csrf_token %}
                                 <div class="form-group">
                                     <label for="validationCustomtitle" class="col-form-label pt-0"><span>*</span>
-                                        User First Name</label>
-                                    <input class="form-control" required name='f_name' id="validationCustomtitle"
+                                        Name</label>
+                                    <input class="form-control" required name='name' id="validationCustomtitle"
                                         type="text">
                                 </div>
                                 <div class="form-group">
                                     <label for="validationCustomtitle" class="col-form-label pt-0"><span>*</span>
-                                        User Last Name</label>
-                                    <input class="form-control" required name='l_name' id="validationCustomtitle"
-                                        type="text">
-                                </div>
-                                <div class="form-group">
-                                    <label for="validationCustomtitle" class="col-form-label pt-0"><span>*</span>
-                                        User Email</label>
+                                        Email</label>
                                     <input class="form-control" name='email' id="validationCustomtitle" type="text"
                                         required="">
                                 </div>
                                 <div class="form-group">
                                     <label for="validationCustomtitle" class="col-form-label pt-0">
-                                        User Phone Number</label>
+                                        Total Purchase Amount</label>
+                                    <input class="form-control" name='t_p_amount' id="validationCustomtitle" type="text">
+                                </div>
+                                <div class="form-group">
+                                    <label for="validationCustomtitle" class="col-form-label pt-0">
+                                        Phone Number</label>
                                     <input class="form-control" name='p_number' id="validationCustomtitle" type="text">
                                 </div>
                                 <div class="form-group">
                                     <label for="validationCustomtitle" class="col-form-label pt-0">
-                                        User Address</label>
-                                    <input class="form-control" name='address' id="validationCustomtitle" type="text">
-                                </div>
-                                <div class="form-group">
-                                    <label for="validationCustomtitle" class="col-form-label pt-0">
-                                        User Password</label>
-                                    <input required id="password" name="password" type="password" class="form-control"
-                                        placeholder="********">
-                                    <h6 id="error" style="color: red;"></h6>
-                                </div>
-                                <div class="form-group">
-                                    <label for="validationCustomtitle" class="col-form-label pt-0">
-                                        User Confirm Password</label>
-                                    <input required name="re_password" id="c-password" type="password" class="form-control"
-                                        placeholder="Password">
-                                    <h6 id="re_error" style="color: red;"></h6>
+                                        Address</label>
+                                    <input required id="password" name="address" type="text" class="form-control"
+                                        placeholder="address">
                                 </div>
                                 <div class="form-group mb-0">
                                     <div class="product-buttons text-center">
-                                        <button id="submit" class="btn btn-primary " onclick="return checkPassword();"
-                                            type="submit">Create</button>
+                                        <button id="submit" class="btn btn-primary " type="submit">Create</button>
                                     </div>
                                 </div>
                             </form>
@@ -105,7 +90,6 @@
     <!-- Container-fluid Ends-->
 
 </div>
-<script src="{% static 'js/chack_password.js' %}"></script>
 
 
 {% endblock content %}

@@ -12,7 +12,7 @@ function checkPassword() {
     }
     
     if (password != cPassword) {
-        document.getElementById("error").innerHTML = "Passwords don't Match";
+        document.getElementById("re_error").innerHTML = "Enter valid Confirm Passwords";
         document.getElementById("from1").reset();
         return false;
     }

@@ -246,8 +246,8 @@
                         <li><a class="sidebar-header" href="#"><i data-feather="users"></i><span>Vendors</span><i
                                     class="fa fa-angle-right pull-right"></i></a>
                             <ul class="sidebar-submenu">
-                                <li><a href="#"><i class="fa fa-circle"></i>Vendor List</a></li>
-                                <li><a href="#"><i class="fa fa-circle"></i>Create Vendor</a></li>
+                                <li><a href="{% url 'list-customer' %}"><i class="fa fa-circle"></i>Vendor List</a></li>
+                                <li><a href="{% url 'add-customer' %}"><i class="fa fa-circle"></i>Create Vendor</a></li>
                             </ul>
                         </li>
                         {% comment %} <li><a class="sidebar-header" href="#"><i data-feather="chrome"></i><span>Localization</span><i
@@ -363,15 +363,18 @@
 
 
             <body>
-                {% comment %} {% if messages %}
+             
+                {% block content %}
+                 {% if messages %}
                 {% for message in messages %}
                 <div class="alert alert-{{ message.tags }}">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                     {{ message|safe }}
                 </div>
                 {% endfor %}
-                {% endif %} {% endcomment %}
-                {% block content %}{% endblock content %}
+                {% endif %}
+                
+                {% endblock content %}
             </body>
 
 
