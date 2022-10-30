@@ -40,3 +40,8 @@ class GroupAdminForm(forms.ModelForm):
         # Save many-to-many data
         self.save_m2m()
         return instance
+
+class UserGroupForm(forms.ModelForm):
+    class Meta:
+        model = Group
+        fields = '__all__'

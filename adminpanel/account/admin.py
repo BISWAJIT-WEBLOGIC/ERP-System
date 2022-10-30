@@ -49,3 +49,7 @@ class GroupAdmin(admin.ModelAdmin):
 
 # Register the new Group ModelAdmin.
 admin.site.register(Group, GroupAdmin)
+
+from django.contrib.auth.models import Permission
+admin.site.register(Permission)
+

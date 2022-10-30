@@ -1,0 +1,218 @@
+<style>
+	.wrapper {
+		margin: 0 auto;
+		/* padding: 40px; */
+		max-width: 800px;
+
+	}
+
+	.table {
+		/* margin: 0 0 40px 0; */
+		width: 100%;
+		box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+		display: table;
+	}
+
+	@media screen and (max-width: 580px) {
+		.table {
+			display: block;
+		}
+	}
+
+	.rows {
+		display: table-row;
+		background: #f6f6f6;
+
+
+	}
+
+	.rows:nth-of-type(odd) {
+		background: #e9e9e9;
+	}
+
+	.rows.header {
+		font-weight: 1000;
+		color: #ffffff;
+		background: #30b4dc;
+	}
+
+	.h_cell {
+		padding: 6px 12px;
+		display: table-cell;
+		padding-left: 40%;
+	}
+
+	@media screen and (max-width: 580px) {
+		.rows {
+			padding: 14px 0 7px;
+			display: block;
+		}
+
+		.rows.header {
+			padding: 0;
+			height: 6px;
+		}
+
+		.rows.header .cell {
+			display: none;
+		}
+
+		.rows .cell {
+			margin-bottom: 10px;
+		}
+
+		.rows .cell:before {
+			margin-bottom: 3px;
+			content: attr(data-title);
+			min-width: 98px;
+			font-size: 10px;
+			line-height: 10px;
+			font-weight: bold;
+			text-transform: uppercase;
+			color: #969696;
+			display: block;
+		}
+	}
+
+	.cell {
+		padding: 6px 12px;
+		display: table-cell;
+		padding-left: 42%;
+
+	}
+
+	@media screen and (max-width: 580px) {
+		.cell {
+			padding: 2px 16px;
+			display: block;
+		}
+	}
+</style>
+{% extends "base.html" %}
+{% block content %}
+{% load static %}
+
+
+<div class="page-body">
+	<!-- Container-fluid starts-->
+	<div class="container-fluid">
+		<div class="page-header">
+			<div class="row">
+				<div class="col-lg-6">
+					<div class="page-header-left">
+						<h3>Permission
+							<small>ERP Admin panel</small>
+						</h3>
+					</div>
+				</div>
+				<div class="col-lg-6">
+					<ol class="breadcrumb pull-right">
+						<li class="breadcrumb-item"><a href="index.html"><i data-feather="home"></i></a></li>
+						<li class="breadcrumb-item">Physical</li>
+						<li class="breadcrumb-item active">Permission</li>
+					</ol>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Container-fluid Ends-->
+
+	<!-- Container-fluid starts-->
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="card">
+					{% if error %}
+					<div class=" alert-danger text-center" role="alert">
+						{% for field, error in error.items %}
+						{{ error | striptags }}
+						<br>
+						<br>
+						{% endfor %}
+					</div>
+					{% endif %}
+
+					<div class="card-header">
+						<h5> Group And Permission</h5>
+					</div>
+					<div class="card-body pt-0">
+						<div class="btn-popup pull-right">
+							<button type="button" class="btn btn-primary" data-toggle="modal" data-original-title="test"
+								data-target="#exampleModal">Create Group And Add Permission</button>
+							<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+								aria-labelledby="exampleModalLabel" aria-hidden="true">
+								<div class="modal-dialog" role="document">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h5 class="modal-title f-w-600" id="exampleModalLabel">Add Group And
+												Permission
+											</h5>
+											<button class="close" type="button" data-dismiss="modal"
+												aria-label="Close"><span aria-hidden="true">×</span></button>
+										</div>
+										<div class="modal-body">
+											<form class="needs-validation" method="post" action="">
+												{% csrf_token %}
+												<div class="form">
+													<div class="form-group">
+
+														<label for="validationCustom01" class="mb-1">
+															Group Name:
+														</label>
+														{{form.name}}
+														<hr>
+														<label for="validationCustom01" class="mb-1">
+															Group permissions:
+														</label>
+														<!-- <select size="8"> -->
+															{{form.permissions}}
+														<!-- </select> -->
+														
+														<!-- <input class="form-control" name="group_name" id="validationCustom01" type="text"> -->
+													</div>
+													<!-- <div class="form-group mb-0">
+                                                        <label for="validationCustom02" class="mb-1">Permission Image
+                                                            :</label>
+                                                        <input class="form-control" id="validationCustom02" type="file">
+                                                    </div> -->
+
+													<button class="btn btn-primary" type="submit">Save</button>
+													<button class="btn btn-secondary" type="button"
+														data-dismiss="modal">Close</button>
+												</div>
+											</form>
+										</div>
+
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="wrapper">
+							<div class="table">
+								<div class="rows header">
+									<div class="h_cell">
+										Group Name
+									</div>
+								</div>
+								{% for group in group %}
+								<div class="rows">
+									<div class="cell" data-title="Name">
+										{{group}}
+									</div>
+								</div>
+								{% endfor %}
+
+							</div>
+						</div>
+						<div class="table-responsive">
+							<div id="basicScenario" class="product-physical"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Container-fluid Ends-->
+</div>
+
+{% endblock content %}

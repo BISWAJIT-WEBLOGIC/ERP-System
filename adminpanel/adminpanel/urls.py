@@ -3,7 +3,7 @@ from django.urls import path ,include
 from  .views import Home,LoginView,LogoutView,AddCategory,AddItem ,password_reset_request
 from adminpanel.inventory.views import AddProductsCategory ,AddProducts ,ViewProducts ,EditUserView
 from adminpanel.machine.views import AddMachine , ListMachine
-from adminpanel.account.views import ListUser , CreateUser
+from adminpanel.account.views import ListUser , CreateUser ,create_group
 from adminpanel.customer.views import AddCustomer , ListCustomer
 
 
@@ -20,6 +20,7 @@ urlpatterns = [
 
     path('list_user', ListUser.as_view(), name='list-user'),
     path('add_user', CreateUser.as_view(), name='add-user'),
+    path('create_group/', create_group, name='create-group'),
 
     # ...............inventory....................
     path('add_category', AddProductsCategory.as_view(), name='add-category'),

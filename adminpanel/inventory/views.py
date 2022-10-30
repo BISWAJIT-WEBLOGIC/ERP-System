@@ -10,14 +10,15 @@ from django.contrib.auth.models import  Permission,User
 from django.contrib.contenttypes.models import ContentType
 from django.http import Http404
 
-def check_user_able_to_see_page(groups,c_t):
+def check_user_able_to_see_page(c_t):
 
     def decorator(function):
         def wrapper(request, *args, **kwargs):
-            if request.request.user.groups.filter(name=groups).exists():
-                permission = Permission.objects.get(codename=c_t)
-                if Group.objects.filter(permissions=permission).exists():
-                    return function(request, *args, **kwargs)
+            # if request.request.user.groups.filter(name=groups).exists():
+            # permission = Permission.objects.get(codename=c_t)
+            if request.request.user.has_perm(c_t):
+                print("demo")
+                return function(request, *args, **kwargs)
             raise Http404
 
         return wrapper
@@ -29,18 +30,19 @@ logger = logging.getLogger(__name__)
 
 
 class AddProductsCategory(CreateView):
-    model = Product_Category
+    # model = Product_Category
     
     
-    @check_user_able_to_see_page('demo','view_product_category')
+    # @check_user_able_to_see_page('view_product_category')
     def get(self, request, *args, **kwargs):
-        all_category = Product_Category.objects.all()
-        context ={
-            'all_category': all_category
-        }
-        return render(request, 'category_list.html',context )
+        if request.user.has_perm('inventory.view_product_category'):
+            all_category = Product_Category.objects.all()
+            context ={
+                'all_category': all_category
+            }
+            return render(request, 'category_list.html',context )
 
-    @check_user_able_to_see_page('demo','add_product_category')
+    @check_user_able_to_see_page('add_product_category')
     def post(self, request, *args, **kwargs):
         post_name = request.POST['category_name']
         Product_Category.objects.create(category_name=post_name)
@@ -48,7 +50,7 @@ class AddProductsCategory(CreateView):
 
 class ViewProducts(View):
 
-    @check_user_able_to_see_page('demo','view_product')
+    @check_user_able_to_see_page('view_product')
     def get(self, request, *args, **kwargs):
         all_product = Product.objects.all()
         context ={
@@ -58,7 +60,7 @@ class ViewProducts(View):
 
 
 class AddProducts(CreateView):
-    @check_user_able_to_see_page('demo','add_product')
+    @check_user_able_to_see_page('add_product')
     def get(self, request, *args, **kwargs):
         all_category = Product_Category.objects.all()
         context ={
@@ -66,7 +68,7 @@ class AddProducts(CreateView):
         }
         return render(request, 'add_product.html',context )
 
-    @check_user_able_to_see_page('demo','add_product')
+    @check_user_able_to_see_page('add_product')
     def post(self, request, *args, **kwargs):
         if request.FILES:
             post_name = request.POST['product_name']
