@@ -1,90 +1,20 @@
 {% extends "base.html" %}
 {% block content %}
 {% load static %}
-<!-- Right sidebar Start-->
-<div class="right-sidebar" id="right_side_bar">
-    <div>
-        <div class="container p-0">
-            <div class="modal-header p-l-20 p-r-20">
-                <div class="col-sm-8 p-0">
-                    <h6 class="modal-title font-weight-bold">FRIEND LIST</h6>
-                </div>
-                <div class="col-sm-4 text-right p-0"><i class="mr-2" data-feather="settings"></i></div>
-            </div>
-        </div>
-        <div class="friend-list-search mt-0">
-            <input type="text" placeholder="search friend"><i class="fa fa-search"></i>
-        </div>
-        <div class="p-l-30 p-r-30">
-            <div class="chat-box">
-                <div class="people-list friend-list">
-                    <ul class="list">
-                        <li class="clearfix"><img class="rounded-circle user-image" src="images/dashboard/user.png"
-                                alt="">
-                            <div class="status-circle online"></div>
-                            <div class="about">
-                                <div class="name">Vincent Porter</div>
-                                <div class="status"> Online</div>
-                            </div>
-                        </li>
-                        <li class="clearfix"><img class="rounded-circle user-image" src="images/dashboard/user1.jpg"
-                                alt="">
-                            <div class="status-circle away"></div>
-                            <div class="about">
-                                <div class="name">Ain Chavez</div>
-                                <div class="status"> 28 minutes ago</div>
-                            </div>
-                        </li>
-                        <li class="clearfix"><img class="rounded-circle user-image" src="images/dashboard/user2.jpg"
-                                alt="">
-                            <div class="status-circle online"></div>
-                            <div class="about">
-                                <div class="name">Kori Thomas</div>
-                                <div class="status"> Online</div>
-                            </div>
-                        </li>
-                        <li class="clearfix"><img class="rounded-circle user-image" src="images/dashboard/user3.jpg"
-                                alt="">
-                            <div class="status-circle online"></div>
-                            <div class="about">
-                                <div class="name">Erica Hughes</div>
-                                <div class="status"> Online</div>
-                            </div>
-                        </li>
-                        <li class="clearfix"><img class="rounded-circle user-image"
-                                src="{% static 'images/dashboard/man.png' %}" alt="">
-                            <div class="status-circle offline"></div>
-                            <div class="about">
-                                <div class="name">Ginger Johnston</div>
-                                <div class="status"> 2 minutes ago</div>
-                            </div>
-                        </li>
-                        <li class="clearfix"><img class="rounded-circle user-image" src="images/dashboard/user5.jpg"
-                                alt="">
-                            <div class="status-circle away"></div>
-                            <div class="about">
-                                <div class="name">Prasanth Anand</div>
-                                <div class="status"> 2 hour ago</div>
-                            </div>
-                        </li>
-                        <li class="clearfix"><img class="rounded-circle user-image" src="images/dashboard/designer.jpg"
-                                alt="">
-                            <div class="status-circle online"></div>
-                            <div class="about">
-                                <div class="name">Hileri Jecno</div>
-                                <div class="status"> Online</div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Right sidebar Ends-->
+
+<link rel="stylesheet" type="text/css" href="{% static 'css/django_messages.css' %}">
+
+
 
 <div class="page-body">
-
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }}">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        {{ message|safe }}
+    </div>
+    {% endfor %}
+    {% endif %}
     <!-- Container-fluid starts-->
     <div class="container-fluid">
         <div class="page-header">
@@ -115,35 +45,35 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="digital-add needs-validation">
-                            <form method="post" action="add_product" enctype="multipart/form-data">
+                            <form method="post" action="" enctype="multipart/form-data">
                                 {% csrf_token %}
                                 <div class="form-group">
                                     <label for="validationCustomtitle" class="col-form-label pt-0"><span>*</span>
                                         Product Name</label>
-                                    <input class="form-control" name='product_name' id="validationCustomtitle"
+                                    <input class="form-control" name='product_name' id="name" id="validationCustomtitle" value="{{product.Product_Name}}"
                                         type="text" required="">
                                 </div>
                                 <div class="form-group">
                                     <label class="col-form-label"><span>*</span>Product Categories</label>
-                                    <select class="custom-select" required="" name="categories">
+                                    <select class="custom-select" id="myDropdown1" required="" name="categories">
                                         <option value="">--Select--</option>
                                         {% for category in all_category %}
                                         <option value="{{category.category_ID}}">{{category}}</option>
                                         {% endfor %}
-
                                     </select>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-form-label"><span>*</span>Product Status</label>
-                                    <select class="custom-select" required="" name="status">
+                                    <select class="custom-select" id="myDropdown2" required="" name="status">
                                         <option value="">--Select--</option>
                                         <option value="A">Active</option>
                                         <option value="I">Inactive</option>
+
                                     </select>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-form-label"><span>*</span>Product Quantity</label>
-                                    <select class="custom-select" required="" name="quantity">
+                                    <select class="custom-select" id="myDropdown3" required="" name="quantity">
                                         <option value="">--Select--</option>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
@@ -160,12 +90,12 @@
                                 <div class="form-group">
                                     <label for="validationCustomtitle" class="col-form-label pt-0"><span>*</span>
                                         Product Price</label>
-                                    <input class="form-control" name='product_price' id="validationCustomtitle"
-                                        type="text" required="">
+                                    <input class="form-control" name='product_price' id="price"
+                                        id="validationCustomtitle" type="text" required="">
                                 </div>
                                 <br>
                                 <label class="col-form-label pt-0"> Product Upload</label>
-                                <input type="file" name="user_img" accept="image/*" onChange="validateAndUpload(this);">
+                                <input type="file" required name="user_img" accept="image/*" onChange="validateAndUpload(this);">
                                 <br>
                                 <br>
                                 <div class="form-group mb-0">
@@ -185,4 +115,22 @@
     <!-- Container-fluid Ends-->
 
 </div>
+
+<script>
+    var data = JSON.parse("{{data|escapejs}}");
+    let obj = Object.values(data[0]);
+
+    var dataNode = document.getElementById('myDropdown3');
+    dataNode.value = obj[2]
+
+    var dataNode2 = document.getElementById('myDropdown2');
+    dataNode2.value = obj[5]
+
+    var dataNode3 = document.getElementById('myDropdown1');
+    dataNode3.value = obj[4]
+
+    var price = document.getElementById('price');
+    price.value = obj[3]
+
+</script>
 {% endblock content %}

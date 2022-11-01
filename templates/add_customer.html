@@ -2,6 +2,8 @@
 {% block content %}
 {% load static %}
 
+<link rel="stylesheet" type="text/css" href="{% static 'css/django_messages.css' %}">
+
 
 <div class="page-body">
     {% if messages %}
@@ -50,29 +52,29 @@
                                 <div class="form-group">
                                     <label for="validationCustomtitle" class="col-form-label pt-0"><span>*</span>
                                         Name</label>
-                                    <input class="form-control" required name='name' id="validationCustomtitle"
+                                    <input class="form-control" required name='name' value="{{customer.name}}" id="validationCustomtitle"
                                         type="text">
                                 </div>
                                 <div class="form-group">
                                     <label for="validationCustomtitle" class="col-form-label pt-0"><span>*</span>
                                         Email</label>
-                                    <input class="form-control" name='email' id="validationCustomtitle" type="text"
+                                    <input class="form-control" name='email' id="validationCustomtitle" value="{{customer.email}}" type="text"
                                         required="">
                                 </div>
                                 <div class="form-group">
                                     <label for="validationCustomtitle" class="col-form-label pt-0">
                                         Total Purchase Amount</label>
-                                    <input class="form-control" name='t_p_amount' id="validationCustomtitle" type="text">
+                                    <input class="form-control" name='t_p_amount' id="validationCustomtitle" value="{{customer.totalpurchaseamount}}" type="text">
                                 </div>
                                 <div class="form-group">
                                     <label for="validationCustomtitle" class="col-form-label pt-0">
                                         Phone Number</label>
-                                    <input class="form-control" name='p_number' id="validationCustomtitle" type="text">
+                                    <input class="form-control" name='p_number' id="validationCustomtitle" value="{{customer.ph_number}}" type="text">
                                 </div>
                                 <div class="form-group">
                                     <label for="validationCustomtitle" class="col-form-label pt-0">
                                         Address</label>
-                                    <input required id="password" name="address" type="text" class="form-control"
+                                    <input required id="password" name="address" type="text" value="{{customer.address}}" class="form-control"
                                         placeholder="address">
                                 </div>
                                 <div class="form-group mb-0">

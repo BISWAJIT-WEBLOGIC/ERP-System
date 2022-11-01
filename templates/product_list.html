@@ -3,75 +3,87 @@
 
 {% block content %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/all_list.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/django_messages.css' %}">
+
 
 <style>
-	.status_A{
-    color: rgb(8, 244, 8);
-}
+	.status_A {
+		color: rgb(8, 244, 8);
+	}
 
-.status_I{
-    color: red;
-	
-}
+	.status_I {
+		color: red;
+
+	}
 </style>
-<body>
 
-	<section class="ftco-section">
-		<div class="container">
-			<div class="row justify-content-center">
-				<div class="col-md-6 text-center">
-					<h2 class="heading-section">Product List</h2>
+<section class="ftco-section">
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-md-6 text-center">
+				{% if messages %}
+				{% for message in messages %}
+				<div class="alert alert-{{ message.tags }}">
+					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+					{{ message|safe }}
 				</div>
+				{% endfor %}
+				{% endif %}
+				<h2 class="heading-section">Product List</h2>
 			</div>
-			<div class="row" style="margin-left: 100px;">
-				<div class="col-md-12">
-					<div class="">
-						<table class="table table-responsive-xl">
-							<thead>
-								<tr >
-									<th style="font-size: 20px;">Image</th>
-									<th style="font-size: 20px;">Name</th>
-									<th style="font-size: 20px;">Category</th>
-									<th style="font-size: 20px;">Available Quantity</th>
-									<th style="font-size: 20px;">Product Price</th>
-									<th style="font-size: 20px;">Status</th>
-								</tr>
-							</thead>
-							<tbody>
+		</div>
+		<div class="row" style="margin-left: 150px;">
+			<div class="col-md-12">
+				<div class="">
+					<table class="table table-responsive-xl">
+						<thead>
+							<tr>
+								<th style="font-size: 15px;">Image</th>
+								<th style="font-size: 15px;">Name</th>
+								<th style="font-size: 15px;">Product Category</th>
+								<th style="font-size: 15px;">Available Quantity</th>
+								<th style="font-size: 15px;">Product Price</th>
+								<th style="font-size: 15px;">Status</th>
+								<th style="font-size: 15px;">Upadate</th>
+							</tr>
+						</thead>
+						<tbody>
 
-								{% for category in all_category %}
+							{% for product in all_category %}
 
-								<tr class="alert" role="alert">
-									<td><a href="{{ category.image.url }}"><img class="img" src="{{ category.image.url }}"></a> </td>
-									<td>{{category.Product_Name}}</td>
-									<td>{{category.category}}</td>
-									<td>{{category.available_quantity}}</td>
-									<td>{{category.product_price}}</td>
-									{% if category.Product_Stock == 'A' %}
-									<td class="status_{{category.Product_Stock}}">Active</td>
-									{% else %}
-									<td class="status_{{category.Product_Stock}}">Inactive</td>
-									{% endif %}	
-								</tr>
+							<tr class="alert" role="alert">
+								<td><a href="{{ product.image.url }}"><img class="img"
+											src="{{ product.image.url }}"></a> </td>
+								<td>{{product.Product_Name}}</td>
+								<td>{{product.category}}</td>
+								<td>{{product.available_quantity}}</td>
+								<td>{{product.product_price}}</td>
+								{% if product.Product_Stock == 'A' %}
+								<td class="status_{{product.Product_Stock}}">Active</td>
+								{% else %}
+								<td class="status_{{product.Product_Stock}}">Inactive</td>
+								{% endif %}
+								<td><a href="{% url 'update-product' id=product.Product_ID %}"><i class="fa fa-edit" style="font-size:24px;padding-left:10px;color:rgb(3, 171, 249)"></i></a></td>
+							</tr>
 
-								{% endfor %}
+							{% endfor %}
 
-							</tbody>
-						</table>
-					</div>
+						</tbody>
+					</table>
 				</div>
 			</div>
 		</div>
-	</section>
-	<script src="{% static 'js/all_list/jquery.min.js' %}"></script>
-	<script src="{% static 'js/all_list/popper.js' %}"></script>
+	</div>
+</section>
+<script src="{% static 'js/all_list/jquery.min.js' %}"></script>
+<script src="{% static 'js/all_list/popper.js' %}"></script>
 
-	<script src="{% static 'js/all_list/bootstrap.min.js' %}"></script>
-	<script src="{% static 'js/all_list/main.js' %}"></script>
+<script src="{% static 'js/all_list/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/all_list/main.js' %}"></script>
 
-	{% comment %}
-	<!-- <script src="js/jquery.min.js"></script>
+{% comment %}
+<!-- <script src="js/jquery.min.js"></script>
   <script src="js/popper.js"></script>
   <script src="js/bootstrap.min.js"></script>
   <script src="js/main.js"></script> --> {% endcomment %}
-	{% endblock content %}
+{% endblock content %}

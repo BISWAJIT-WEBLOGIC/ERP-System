@@ -3,35 +3,37 @@
 
 {% block content %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/all_list.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/django_messages.css' %}">
 
-<style>
-	.status_A{
-    color: rgb(8, 244, 8);
-}
 
-.status_I{
-    color: red;
-	
-}
-</style>
 <body>
 
 	<section class="ftco-section">
 		<div class="container">
 			<div class="row justify-content-center">
 				<div class="col-md-6 text-center">
+					{% if messages %}
+					{% for message in messages %}
+					<div class="alert alert-{{ message.tags }}">
+						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+						{{ message|safe }}
+					</div>
+					{% endfor %}
+					{% endif %}
 					<h2 class="heading-section">Machine List</h2>
 				</div>
 			</div>
-			<div class="row" style="margin-left: 100px;">
+			<div class="row" style="margin-left: 150px;">
 				<div class="col-md-9">
 					<div class="">
 						<table class="table table-responsive-m">
 							<thead>
-								<tr >
-                                    <th style="font-size: 20px;">Registration_no</th>
-									<th style="font-size: 20px;">Name</th>
-									<th style="font-size: 20px;">Current Temperature</th>
+								<tr>
+									<th style="font-size: 15px;">Registration_no</th>
+									<th style="font-size: 15px;">Name</th>
+									<th style="font-size: 15px;">Current Temperature</th>
+									<th style="font-size: 15px;">Upadate</th>
+
 								</tr>
 							</thead>
 							<tbody>
@@ -42,8 +44,10 @@
 									<td>{{machine.machine_registration_no}}</td>
 									<td>{{machine.machine_name}}</td>
 									<td>{{machine.machine_current_temperature}}</td>
-
-								{% endfor %}
+									<td><a href="{% url 'update-machine' id=machine.machine_ID %}"><i class="fa fa-edit"
+												style="font-size:24px;padding-left:10px;color:rgb(3, 171, 249)"></i></a>
+									</td>
+									{% endfor %}
 
 							</tbody>
 						</table>

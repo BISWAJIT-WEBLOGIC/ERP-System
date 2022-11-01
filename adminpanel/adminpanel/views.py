@@ -28,20 +28,19 @@ def page_not_found(request, exception):
     return HttpResponseNotFound(content)
 
 class Home(View):
-    # template_name = 'index.html'
     
     @method_decorator(login_required())
     def get(self, request, *args, **kwargs):
         request.user.has_perm('machine.change_machine', obj=None)
         return render(request, "index.html")
     
-class AddCategory(View):
-    def get(self, request, *args, **kwargs):
-        return render(request, "list-item.html")
+# class AddCategory(View):
+#     def get(self, request, *args, **kwargs):
+#         return render(request, "list-item.html")
     
-class AddItem(View):
-    def get(self, request, *args, **kwargs):
-        return render(request, "add-item.html")
+# class AddItem(View):
+#     def get(self, request, *args, **kwargs):
+#         return render(request, "add-item.html")
 
 
 class LoginView(View):
@@ -62,8 +61,10 @@ class LoginView(View):
         if user is not None:
             if user.is_active:
                 login(request, user)
+                messages.success(request, f'You are login as using {request.user}')
                 return redirect('home')
         else:
+            messages.error(request, 'Please enter valid email and password')
             return render(request, "login.html")
 
 

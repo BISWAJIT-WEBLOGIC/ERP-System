@@ -3,70 +3,70 @@
 
 {% block content %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/all_list.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/django_messages.css' %}">
 
-<style>
-	.status_A {
-		color: rgb(8, 244, 8);
-	}
 
-	.status_I {
-		color: red;
-
-	}
-</style>
-
-<body>
-
-	<section class="ftco-section">
-		<div class="container">
-			<div class="row justify-content-center">
-				<div class="col-md-6 text-center">
-					<h2 class="heading-section">User List</h2>
+<section class="ftco-section">
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-md-6 text-center">
+				{% if messages %}
+				{% for message in messages %}
+				<div class="alert alert-{{ message.tags }}">
+					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+					{{ message|safe }}
 				</div>
+				{% endfor %}
+				{% endif %}
+				<h2 class="heading-section">User List</h2>
 			</div>
-			<div class="row" style="margin-left: 100px;">
-				<div class="col-md-12">
-					<div class="">
-						<table class="table table-responsive-xl">
-							<thead>
-								<tr>
-									<th style="font-size: 18px;">First Name</th>
-									<th style="font-size: 18px;">Email</th>
-									<th style="font-size: 18px;">Total Purchase Amount</th>
-									<th style="font-size: 18px;">Phone Number</th>
-									<th style="font-size: 18px;">Address</th>
-								</tr>
-							</thead>
-							<tbody>
+		</div>
+		<div class="row" style="margin-left: 150px;">
+			<div class="col-md-12">
+				<div class="">
+					<table class="table table-responsive-xl">
+						<thead>
+							<tr>
+								<th style="font-size: 15px;">First Name</th>
+								<th style="font-size: 15px;">Email</th>
+								<th style="font-size: 15px;">Total Purchase Amount</th>
+								<th style="font-size: 15px;">Phone Number</th>
+								<th style="font-size: 15px;">Address</th>
+								<th style="font-size: 15px;">Upadte</th>
+							</tr>
+						</thead>
+						<tbody>
 
-								{% for customer in all_customer %}
+							{% for customer in all_customer %}
 
-								<tr class="alert" role="alert">
-									<td>{{customer.name}}</td>
-									<td>{{customer.email}}</td>
-									<td>{{customer.totalpurchaseamount}}</td>
-									<td>{{customer.ph_number}}</td>
-									<td>{{customer.address}}</td>
-								</tr>
+							<tr class="alert" role="alert">
+								<td>{{customer.name}}</td>
+								<td>{{customer.email}}</td>
+								<td>{{customer.totalpurchaseamount}}</td>
+								<td>{{customer.ph_number}}</td>
+								<td>{{customer.address}}</td>
+								<td><a href="{% url 'update-customer' id=customer.customer_Id %}"><i class="fa fa-edit"
+									style="font-size:24px;padding-left:10px;color:rgb(3, 171, 249)"></i></a>
+							</tr>
 
-								{% endfor %}
+							{% endfor %}
 
-							</tbody>
-						</table>
-					</div>
+						</tbody>
+					</table>
 				</div>
 			</div>
 		</div>
-	</section>
-	<script src="{% static 'js/all_list/jquery.min.js' %}"></script>
-	<script src="{% static 'js/all_list/popper.js' %}"></script>
+	</div>
+</section>
+<script src="{% static 'js/all_list/jquery.min.js' %}"></script>
+<script src="{% static 'js/all_list/popper.js' %}"></script>
 
-	<script src="{% static 'js/all_list/bootstrap.min.js' %}"></script>
-	<script src="{% static 'js/all_list/main.js' %}"></script>
+<script src="{% static 'js/all_list/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/all_list/main.js' %}"></script>
 
-	{% comment %}
-	<!-- <script src="js/jquery.min.js"></script>
+{% comment %}
+<!-- <script src="js/jquery.min.js"></script>
   <script src="js/popper.js"></script>
   <script src="js/bootstrap.min.js"></script>
   <script src="js/main.js"></script> --> {% endcomment %}
-	{% endblock content %}
+{% endblock content %}

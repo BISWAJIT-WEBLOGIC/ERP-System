@@ -1,10 +1,10 @@
 from django.contrib import admin
 from django.urls import path ,include
-from  .views import Home,LoginView,LogoutView,AddCategory,AddItem ,password_reset_request
-from adminpanel.inventory.views import AddProductsCategory ,AddProducts ,ViewProducts ,EditUserView
-from adminpanel.machine.views import AddMachine , ListMachine
-from adminpanel.account.views import ListUser , CreateUser ,create_group
-from adminpanel.customer.views import AddCustomer , ListCustomer
+from  .views import Home,LoginView,LogoutView,password_reset_request
+from adminpanel.inventory.views import AddProductsCategory ,AddProducts ,ViewProducts ,EditUserView,UpdateProduct
+from adminpanel.machine.views import AddMachine , ListMachine ,UpdateMachine
+from adminpanel.account.views import ListUser , CreateUser ,CreateGroup ,UpdateUser
+from adminpanel.customer.views import AddCustomer , ListCustomer, UpdateCustomer
 
 
 handler404 = 'adminpanel.adminpanel.views.page_not_found'
@@ -20,21 +20,26 @@ urlpatterns = [
 
     path('list_user', ListUser.as_view(), name='list-user'),
     path('add_user', CreateUser.as_view(), name='add-user'),
-    path('create_group/', create_group, name='create-group'),
+    path('create_group/', CreateGroup.as_view(), name='create-group'),
+    path('update_user/<int:id>/', UpdateUser.as_view(), name='update-user'),
 
     # ...............inventory....................
     path('add_category', AddProductsCategory.as_view(), name='add-category'),
     path('add_product', AddProducts.as_view(), name='add-product'),
     path('list_product', ViewProducts.as_view(), name='list-product'),
+    path('update_product/<int:id>/', UpdateProduct.as_view(), name='update-product'),
     path('demo/<id>/', EditUserView, name='demo'),
 
     #..............machine................
 
     path('add_machine', AddMachine.as_view(), name='add-machine'),
+    path('update_machine/<int:id>/', UpdateMachine.as_view(), name='update-machine'),
     path('list_machine', ListMachine.as_view(), name='list-machine'),
 
      #..............Customer................
 
     path('add_customer', AddCustomer.as_view(), name='add-customer'),
     path('list_customer', ListCustomer.as_view(), name='list-customer'),
+    path('update_customer/<int:id>/', UpdateCustomer.as_view(), name='update-customer'),
+
 ]
