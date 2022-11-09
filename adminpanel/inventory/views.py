@@ -9,6 +9,8 @@ from django.contrib.auth.models import  Permission,User
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 import json
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 
 def check_user_able_to_see_page(c_t):
 
@@ -33,7 +35,7 @@ logger = logging.getLogger(__name__)
 class AddProductsCategory(CreateView):
     # model = Product_Category
     
-    
+    @method_decorator(login_required())
     @check_user_able_to_see_page('view_product_category')
     def get(self, request, *args, **kwargs):
         all_category = Product_Category.objects.all()
@@ -42,6 +44,7 @@ class AddProductsCategory(CreateView):
         }
         return render(request, 'category_list.html',context )
 
+    @method_decorator(login_required())
     @check_user_able_to_see_page('add_product_category')
     def post(self, request, *args, **kwargs):
         post_name = request.POST['category_name']
@@ -50,6 +53,7 @@ class AddProductsCategory(CreateView):
 
 class ViewProducts(View):
 
+    @method_decorator(login_required())
     @check_user_able_to_see_page('view_product')
     def get(self, request, *args, **kwargs):
         all_product = Product.objects.all()
@@ -60,6 +64,8 @@ class ViewProducts(View):
 
 
 class AddProducts(CreateView):
+
+    @method_decorator(login_required())
     @check_user_able_to_see_page('add_product')
     def get(self, request, *args, **kwargs):
         all_category = Product_Category.objects.all()
@@ -68,6 +74,7 @@ class AddProducts(CreateView):
         }
         return render(request, 'add_product.html',context )
 
+    @method_decorator(login_required())
     @check_user_able_to_see_page('add_product')
     def post(self, request, *args, **kwargs):
         if request.FILES:
@@ -94,7 +101,8 @@ class UpdateProduct(View):
         except Product.DoesNotExist:
             raise Http404
 
-    # @check_user_able_to_see_page('add_machine')
+    @method_decorator(login_required())
+    @check_user_able_to_see_page('change_product')
     def get(self, request, *args, **kwargs):
         product = self.get_object()
         products = Product.objects.filter(Product_ID=self.kwargs['id'])
@@ -106,7 +114,8 @@ class UpdateProduct(View):
         }
         return render(request, 'add_product.html' ,context)
 
-    # @check_user_able_to_see_page('add_machine')
+    @method_decorator(login_required())
+    @check_user_able_to_see_page('change_product')
     def post(self, request, *args, **kwargs):
         ids = self.kwargs['id']
         print(ids)

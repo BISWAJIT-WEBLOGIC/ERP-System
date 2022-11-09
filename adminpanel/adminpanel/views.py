@@ -18,6 +18,10 @@ from django.contrib.auth.tokens import default_token_generator
 from django.utils.encoding import force_bytes
 from django.conf import settings
 from django.contrib import messages
+from adminpanel.inventory.models import Product
+from adminpanel.customer.models import Customer
+from adminpanel.order.models import Order
+
 
 
 
@@ -32,7 +36,16 @@ class Home(View):
     @method_decorator(login_required())
     def get(self, request, *args, **kwargs):
         request.user.has_perm('machine.change_machine', obj=None)
-        return render(request, "index.html")
+        product_no = Product.objects.all().count()
+        customer_no = Customer.objects.all().count()
+        order_no = Order.objects.all().count()
+        # print(product)
+        context ={
+            'product_no':product_no,
+            'customer_no':customer_no,
+            'order_no':order_no
+        }
+        return render(request, "index.html",context)
     
 # class AddCategory(View):
 #     def get(self, request, *args, **kwargs):

@@ -52,30 +52,30 @@
                                 <div class="form-group">
                                     <label for="validationCustomtitle" class="col-form-label pt-0"><span>*</span>
                                         User First Name</label>
-                                    <input class="form-control" required name='f_name' value="{{user.first_name}}" id="validationCustomtitle"
+                                    <input class="form-control" required name='f_name' value="{{users.first_name}}" id="validationCustomtitle"
                                         type="text">
                                 </div>
                                 <div class="form-group">
                                     <label for="validationCustomtitle" class="col-form-label pt-0"><span>*</span>
                                         User Last Name</label>
-                                    <input class="form-control" required name='l_name' value="{{user.last_name}}" id="validationCustomtitle"
+                                    <input class="form-control" required name='l_name' value="{{users.last_name}}" id="validationCustomtitle"
                                         type="text">
                                 </div>
                                 <div class="form-group">
                                     <label for="validationCustomtitle" class="col-form-label pt-0"><span>*</span>
                                         User Email</label>
-                                    <input class="form-control" name='email' value="{{user.email}}" id="validationCustomtitle" type="text"
+                                    <input class="form-control" name='email' value="{{users.email}}" id="validationCustomtitle" type="text"
                                         required="">
                                 </div>
                                 <div class="form-group">
                                     <label for="validationCustomtitle" class="col-form-label pt-0">
                                         User Phone Number</label>
-                                    <input class="form-control" name='p_number' value="{{user.ph_number}}" id="validationCustomtitle" type="text">
+                                    <input class="form-control" name='p_number' value="{{users.ph_number}}" id="validationCustomtitle" type="number">
                                 </div>
                                 <div class="form-group">
                                     <label for="validationCustomtitle" class="col-form-label pt-0">
                                         User Address</label>
-                                    <input class="form-control" name='address' value="{{user.address}}" id="validationCustomtitle" type="text">
+                                    <input class="form-control" name='address' value="{{users.address}}" id="validationCustomtitle" type="text">
                                 </div>
                                 <div class="form-group">
                                     <label for="validationCustomtitle" class="col-form-label pt-0">
@@ -87,14 +87,14 @@
                                 <div class="form-group">
                                     <label for="validationCustomtitle" class="col-form-label pt-0">
                                         User Confirm Password</label>
-                                    <input required name="re_password" id="c-password" type="password"
+                                    <input required name="re_password" id="c-password" type="password" placeholder="********"
                                         class="form-control" placeholder="Password">
                                     <h6 id="re_error" style="color: red;"></h6>
                                 </div>
                                 <div class="form-group">
                                     <label for="validationCustomtitle" class="col-form-label pt-0">
                                         Selet User Type</label>
-                                    <select class="custom-select" required="" name="group">
+                                    <select class="custom-select" id="myDropdown" required="" name="group">
                                         <option value="">--Select--</option>
                                         {% for group in group %}
                                         <option value="{{group.name}}">{{group.name}}</option>
@@ -117,6 +117,7 @@
     <!-- Container-fluid Ends-->
 
 </div>
+
 <script src="{% static 'js/chack_password.js' %}"></script>
 
 

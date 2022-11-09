@@ -1,4 +1,4 @@
-from multiprocessing import context
+import json
 from django.contrib import messages
 from django.shortcuts import redirect, render
 from django.views import View
@@ -87,7 +87,6 @@ class CreateUser(View):
 
 class CreateGroup(View):
     
-
     @method_decorator(login_required())
     # @check_user_able_to_see_page('add_user')
     def get(self, request, *args, **kwargs):
@@ -130,17 +129,19 @@ class UpdateUser(View):
         except User.DoesNotExist:
             raise Http404
 
-    # @check_user_able_to_see_page('add_machine')
+    @method_decorator(login_required())
+    @check_user_able_to_see_page('change_user')
     def get(self, request, *args, **kwargs):
         user = self.get_object()
-        group =Group.objects.all()
+        group = Group.objects.all()
         context ={
-            'group':group,
-            'user': user
+            'group': group,
+            'users': user
         }
         return render(request, 'add_user.html' ,context)
 
-    # @check_user_able_to_see_page('add_machine')
+    @method_decorator(login_required())
+    @check_user_able_to_see_page('change_user')
     def post(self, request, *args, **kwargs):
         post_group = request.POST['group']
         group = Group.objects.get(name=post_group)
@@ -149,17 +150,29 @@ class UpdateUser(View):
         else:
             ph_n = request.POST['p_number']
 
-        user = self.get_object()
-
-        if User.objects.filter(Q(email=request.POST['email'])) == user.email:
-            messages.info(request, "Email-is all redy exits" )
-            return redirect('add-user') 
+        if request.POST['address'] == '':
+            address =None
         else:
+            address = request.POST['address']
+
+        user = self.get_object()
+        user = User.objects.get(Q(email=request.POST['email']))
+        print(user.email)
+
+        if User.objects.get(Q(email=request.POST['email'])).email == user.email:
             user.first_name=request.POST['f_name']
             user.last_name=request.POST['l_name']
             user.email=request.POST['email']
             user.ph_number=ph_n
-            user.address=request.POST['address'],
+            print(request.POST['address'])
+            user.address=address,
             # designation=group.name)
+            user.set_password(request.POST['password'])
+            user.designation=group.name
+            user.groups.clear()
+            user.groups.add(group)
             user.save()
             return redirect('list-user')
+        else:
+            messages.info(request, "Email-is all redy exits" )
+            return redirect('update-user',user.id) 

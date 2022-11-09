@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+{% block content %}
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'css/django_messages.css' %}">
+
+
+
+<div class="page-body">
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }}">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        {{ message|safe }}
+    </div>
+    {% endfor %}
+    {% endif %}
+    <!-- Container-fluid starts-->
+    <div class="container-fluid">
+        <div class="page-header">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="page-header-left">
+                        <h3>Add Order
+                            <small>ERP Admin panel</small>
+                        </h3>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <ol class="breadcrumb pull-right">
+                        <li class="breadcrumb-item"><a href="index.html"><i data-feather="home"></i></a></li>
+                        <li class="breadcrumb-item">Digital</li>
+                        <li class="breadcrumb-item active">Add Order</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Container-fluid Ends-->
+
+    <!-- Container-fluid starts-->
+    <div class="container-fluid">
+        <div class="row product-adding">
+            <div class="col-xl-11">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="digital-add needs-validation">
+                            <form method="post" action="">
+                                {% csrf_token %}
+                                <div class="form-group">
+                                    <label class="col-form-label"><span>*</span>Product</label>
+                                    <select class="custom-select" id="myDropdown1" required="" name="product">
+                                        <option value="">--Select--</option>
+                                        {% for product in all_product %}
+                                        <option value="{{product.Product_ID}}">{{product}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-form-label"><span>*</span>Customer</label>
+                                    <select class="custom-select" id="myDropdown2" required="" name="customer">
+                                        <option value="">--Select--</option>
+                                        {% for customer in all_customer %}
+                                        <option value="{{customer.customer_Id}}">{{customer}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="validationCustomtitle" class="col-form-label pt-0"><span>*</span>
+                                        Order Quantity</label>
+                                    <input class="form-control" name='quantity' value="{{order.quantity}}" id="quantity"
+                                        id="validationCustomtitle" type="number" required="">
+                                </div>
+                                <div class="form-group">
+                                    <label for="validationCustomtitle" class="col-form-label pt-0"><span>*</span>
+                                        Order Price</label>
+                                    <input class="form-control" name='price' id="price" value="{{order.price}}"
+                                        id="validationCustomtitle" type="number" required="">
+                                </div>
+                                <div class="form-group mb-0">
+                                    <div class="product-buttons text-center">
+                                        <input class="btn btn-primary " type="submit" value="Upload">
+                                        <!-- <button type="submit" class="btn btn-primary">Add</button> -->
+                                        <button type="button" class="btn btn-light">Discard</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Container-fluid Ends-->
+
+</div>
+
+<script>
+    var data = JSON.parse("{{data|escapejs}}");
+    let obj = Object.values(data[0]);
+    console.log(obj)
+
+    var dataNode = document.getElementById('myDropdown1');
+    dataNode.value = obj[2]
+
+    var dataNode2 = document.getElementById('myDropdown2');
+    dataNode2.value = obj[3]
+
+</script>
+{% endblock content %}

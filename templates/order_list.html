@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/all_list.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/django_messages.css' %}">
+
+
+<section class="ftco-section">
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-md-6 text-center">
+				{% if messages %}
+				{% for message in messages %}
+				<div class="alert alert-{{ message.tags }}">
+					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+					{{ message|safe }}
+				</div>
+				{% endfor %}
+				{% endif %}
+				<h2 class="heading-section">Order List</h2>
+			</div>
+		</div>
+		<div class="row" style="margin-left: 150px;">
+			<div class="col-md-12">
+				<div class="">
+					<table class="table table-responsive-xl">
+						<thead>
+							<tr>
+								<th style="font-size: 15px;">Order Code</th>
+								<th style="font-size: 15px;">Customer Name</th>
+								<th style="font-size: 15px;">Product Name</th>
+								<th style="font-size: 15px;">Order Quantity</th>
+								<th style="font-size: 15px;">Order Price</th>
+								<td style="font-size: 15px;">Update</td>
+							</tr>
+						</thead>
+						<tbody>
+
+							{% for order in all_order %}
+
+							<tr class="alert" role="alert">
+								<td>{{order.order_code}}</td>
+								<td>{{order.customer}}</td>
+								<td>{{order.product}}</td>
+								<td>{{order.quantity}}</td>
+								<td>{{order.price}}</td>
+								<td><a href="{% url 'update-order' id=order.order_ID %}"><i class="fa fa-edit"
+									style="font-size:24px;padding-left:10px;color:rgb(3, 171, 249)"></i></a>
+							</tr>
+
+							{% endfor %}
+
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<script src="{% static 'js/all_list/jquery.min.js' %}"></script>
+<script src="{% static 'js/all_list/popper.js' %}"></script>
+
+<script src="{% static 'js/all_list/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/all_list/main.js' %}"></script>
+
+{% comment %}
+<!-- <script src="js/jquery.min.js"></script>
+  <script src="js/popper.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/main.js"></script> --> {% endcomment %}
+{% endblock content %}

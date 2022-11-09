@@ -4,6 +4,8 @@ from .models import Machine
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.http import Http404
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 
 def check_user_able_to_see_page(c_t):
 
@@ -23,6 +25,7 @@ def check_user_able_to_see_page(c_t):
 
 class ListMachine(View):
 
+    @method_decorator(login_required())
     @check_user_able_to_see_page('view_machine')
     def get(self, request, *args, **kwargs):
         all_machine = Machine.objects.all()
@@ -34,10 +37,12 @@ class ListMachine(View):
 
 class AddMachine(View):
 
+    @method_decorator(login_required())
     @check_user_able_to_see_page('add_machine')
     def get(self, request, *args, **kwargs):
         return render(request, 'add_machine.html' )
 
+    @method_decorator(login_required())
     @check_user_able_to_see_page('add_machine')
     def post(self, request, *args, **kwargs):
         post_name = request.POST['machine_name']
@@ -57,7 +62,8 @@ class UpdateMachine(View):
         except Machine.DoesNotExist:
             raise Http404
 
-    # @check_user_able_to_see_page('add_machine')
+    @method_decorator(login_required())
+    @check_user_able_to_see_page('change_machine')
     def get(self, request, *args, **kwargs):
         machine = self.get_object()
         print(machine)
@@ -66,7 +72,8 @@ class UpdateMachine(View):
         }
         return render(request, 'add_machine.html' ,context)
 
-    # @check_user_able_to_see_page('add_machine')
+    @method_decorator(login_required())
+    @check_user_able_to_see_page('change_machine')
     def post(self, request, *args, **kwargs):
         machine = self.get_object()
         machine.machine_name = request.POST['machine_name']

@@ -43,7 +43,7 @@
                     <div class="bg-secondary card-body">
                         <div class="media static-top-widget">
                             <div class="media-body"><span class="m-0">Products</span>
-                                <h3 class="mb-0">$ <span class="counter">9856</span><small> This Month</small></h3>
+                                <h3 class="mb-0">$ <span class="counter">{{product_no}}</span><small> Total</small></h3>
                             </div>
                             <div class="icons-widgets">
                                 <i data-feather="box"></i>
@@ -52,12 +52,12 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xl-3 col-md-6 xl-50">
+             <div class="col-xl-3 col-md-6 xl-50">
                 <div class="card o-hidden widget-cards">
                     <div class="bg-primary card-body">
                         <div class="media static-top-widget">
-                            <div class="media-body"><span class="m-0">Messages</span>
-                                <h3 class="mb-0">$ <span class="counter">893</span><small> This Month</small></h3>
+                            <div class="media-body"><span class="m-0">Order</span>
+                                <h3 class="mb-0">$ <span class="counter">{{order_no}}</span><small> Total</small></h3>
                             </div>
                             <div class="icons-widgets">
                                 <i data-feather="message-square"></i>
@@ -65,13 +65,13 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> 
             <div class="col-xl-3 col-md-6 xl-50">
                 <div class="card o-hidden widget-cards">
                     <div class="bg-warning card-body">
                         <div class="media static-top-widget">
                             <div class="media-body"><span class="m-0">Earnings</span>
-                                <h3 class="mb-0">$ <span class="counter">6659</span><small> This Month</small></h3>
+                                <h3 class="mb-0">$ <span class="counter">0</span><small> This Month</small></h3>
                             </div>
                             <div class="icons-widgets">
                                 <i data-feather="navigation"></i>
@@ -84,8 +84,8 @@
                 <div class="card o-hidden widget-cards">
                     <div class="bg-success card-body">
                         <div class="media static-top-widget">
-                            <div class="media-body"><span class="m-0">New Vendors</span>
-                                <h3 class="mb-0">$ <span class="counter">45631</span><small> This Month</small></h3>
+                            <div class="media-body"><span class="m-0">Vendors</span>
+                                <h3 class="mb-0">$ <span class="counter">{{customer_no}}</span><small> Total</small></h3>
                             </div>
                             <div class="icons-widgets">
                                 <i data-feather="users"></i>
@@ -94,7 +94,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xl-4 xl-100">
+            {% comment %} <div class="col-xl-4 xl-100">
                 <div class="card height-equal">
                     <div class="card-header">
                         <h5>Order Activity</h5>
@@ -206,7 +206,7 @@
                         <div class="market-chart"></div>
                     </div>
                 </div>
-            </div>
+            </div> {% endcomment %}
             <div class="col-xl-6 xl-100">
                 <div class="card">
                     <div class="card-header">
@@ -354,7 +354,7 @@
                                         <td class="bd-t-none u-s-tb">
                                             <div class="align-middle image-sm-size"><img
                                                     class="img-radius align-top m-r-15 rounded-circle blur-up lazyloaded"
-                                                    src="{% static 'js/jquery-3.3.1.min.js' %}""images/dashboard/user2.jpg"
+                                                    src="{% static 'js/jquery-3.3.1.min.js' %}"
                                                     alt="" data-original-title="" title="">
                                                 <div class="d-inline-block">
                                                     <h6>John Deo <span class="text-muted digits">(14+ Online)</span>
@@ -452,7 +452,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-12">
+            {% comment %} <div class="col-sm-12">
                 <div class="card">
                     <div class="card-header">
                         <h5>Top Selling Country</h5>
@@ -527,7 +527,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> {% endcomment %}
 
         </div>
     </div>

@@ -4,6 +4,8 @@ from .models import Customer
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.http import Http404
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 
 def check_user_able_to_see_page(c_t):
 
@@ -20,6 +22,8 @@ def check_user_able_to_see_page(c_t):
 
 
 class ListCustomer(View):
+
+    @method_decorator(login_required())
     @check_user_able_to_see_page('view_customer')
     def get(self, request, *args, **kwargs):
         all_customer = Customer.objects.all()
@@ -31,10 +35,12 @@ class ListCustomer(View):
 
 class AddCustomer(View):
     
+    @method_decorator(login_required())
     @check_user_able_to_see_page('add_customer')
     def get(self, request, *args, **kwargs):
         return render(request, 'add_customer.html' )
 
+    @method_decorator(login_required())
     @check_user_able_to_see_page('add_customer')
     def post(self, request, *args, **kwargs):
         post_p_number = request.POST['p_number']
@@ -61,7 +67,8 @@ class UpdateCustomer(View):
         except Customer.DoesNotExist:
             raise Http404
 
-    # @check_user_able_to_see_page('add_machine')
+    @method_decorator(login_required())
+    @check_user_able_to_see_page('change_customer')
     def get(self, request, *args, **kwargs):
         customer = self.get_object()
         print(customer)
@@ -70,7 +77,8 @@ class UpdateCustomer(View):
         }
         return render(request, 'add_customer.html' ,context)
 
-    # @check_user_able_to_see_page('add_machine')
+    @method_decorator(login_required())
+    @check_user_able_to_see_page('change_customer')
     def post(self, request, *args, **kwargs):
         customer = self.get_object()
         post_p_number = request.POST['p_number']

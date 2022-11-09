@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'adminpanel.machine',
     'adminpanel.inventory',
     'adminpanel.account',
+    'adminpanel.order',
     
     
     #rest_framework app
