@@ -29,7 +29,6 @@
 							<tr>
 								<th style="font-size: 15px;">First Name</th>
 								<th style="font-size: 15px;">Email</th>
-								<th style="font-size: 15px;">Total Purchase Amount</th>
 								<th style="font-size: 15px;">Phone Number</th>
 								<th style="font-size: 15px;">Address</th>
 								<th style="font-size: 15px;">Upadte</th>
@@ -42,7 +41,6 @@
 							<tr class="alert" role="alert">
 								<td>{{customer.name}}</td>
 								<td>{{customer.email}}</td>
-								<td>{{customer.totalpurchaseamount}}</td>
 								<td>{{customer.ph_number}}</td>
 								<td>{{customer.address}}</td>
 								<td><a href="{% url 'update-customer' id=customer.customer_Id %}"><i class="fa fa-edit"

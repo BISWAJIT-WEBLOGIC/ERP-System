@@ -32,7 +32,6 @@ class ListOrder(View):
     @check_user_able_to_see_page('view_order')
     def get(self, request, *args, **kwargs):
         all_order = Order.objects.all()
-        post_product = Product.objects.get(Product_ID=2)
         context ={
             'all_order': all_order
         }
@@ -57,11 +56,27 @@ class AddOrder(View):
         post_product = request.POST['product']
         post_customer = request.POST['customer']
         post_quantity = request.POST['quantity']
-        post_price = request.POST['price']
-        post_customer = Customer.objects.get(customer_Id=post_customer)
-        post_product = Product.objects.get(Product_ID=post_product)
-        Order.objects.create(customer=post_customer,product=post_product,quantity=post_quantity,price=post_price)
-        return redirect('list-order')
+        post_status = request.POST['status']
+
+        post_product_obj = Product.objects.get(Product_ID=post_product)
+        if int(post_product_obj.available_quantity) >= int(post_quantity):
+
+            product_price =post_product_obj.product_price
+            total_price = (int(product_price)*int(post_quantity))
+
+            post_customer = Customer.objects.get(customer_Id=post_customer)
+            product_obj = Product.objects.filter(Product_ID=post_product)
+
+            product_available_quantity =post_product_obj.available_quantity
+            total_available_quantity = int(product_available_quantity)-int(post_quantity)
+
+            product_obj.update(available_quantity=total_available_quantity)
+            Order.objects.create(customer=post_customer,product=post_product_obj,
+                                quantity=post_quantity,price=total_price,status=post_status)
+            return redirect('list-order')
+        
+        messages.error(request, f'''Chack selected Product Stack, because your selected product " {post_product_obj.Product_Name} " have " {post_product_obj.available_quantity} " in stack''')
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
 class UpdateOrder(View):
@@ -77,27 +92,127 @@ class UpdateOrder(View):
     @check_user_able_to_see_page('change_order')
     def get(self, request, *args, **kwargs):
         order = self.get_object()
-        product = Product.objects.all()
+        products = Product.objects.all()
         customer = Customer.objects.all()
         orders = Order.objects.filter(order_ID=self.kwargs['id'])
+        order = Order.objects.get(order_ID=self.kwargs['id'])
+        product = Product.objects.filter(Product_ID=order.product.Product_ID)
+        print(product.__dict__)
         context ={
-            'all_product':product,
+            'all_product':products,
             'all_customer':customer,
             'order': order,
-            'data': json.dumps(list(orders.values()))
+            'orders_data': json.dumps(list(orders.values())),
+            'product_data': json.dumps(list(product.values()))
         }
         return render(request, 'add_order.html' ,context)
 
     @method_decorator(login_required())
     @check_user_able_to_see_page('change_order')
     def post(self, request, *args, **kwargs):
-        order = Order.objects.filter(order_ID=kwargs['id'])
-        post_product = request.POST['product']
+        post_quantity =request.POST['quantity']
+        post_products = request.POST['product']
         post_customer = request.POST['customer']
+        post_status =request.POST['status']
+
         post_customer = Customer.objects.get(customer_Id=post_customer)
-        post_product = Product.objects.get(Product_ID=post_product)
-        order.update(customer=post_customer,
-                    product=post_product,
-                    quantity=request.POST['quantity'],
-                    price=request.POST['price'])
-        return redirect('list-order')
+        post_product = Product.objects.get(Product_ID=post_products)
+        print(post_product)
+        order = Order.objects.get(order_ID=kwargs['id'])
+        
+        if int(post_product.available_quantity) >= int(post_quantity):
+            print("1")
+            if (int(order.quantity) > int(post_quantity)):
+                print("2")
+                discrise_order_quantity = (int(order.quantity) - int(post_quantity))
+                final_product_quantity = int(post_product.available_quantity)+discrise_order_quantity
+                final_order_price = int(order.price) - (int(post_product.product_price)*discrise_order_quantity)
+
+                product_obj = Product.objects.filter(Product_ID=post_products)
+                product_obj.update(available_quantity=final_product_quantity)
+
+                order_obj = Order.objects.filter(order_ID=kwargs['id'])
+                order_obj.update(customer=post_customer,
+                            product=post_product,
+                            quantity=post_quantity,
+                            price=final_order_price,
+                            status=post_status)
+                return redirect('list-order')
+
+            if (int(order.quantity) == int(post_quantity)):
+                print("3")
+                discrise_order_quantity = (int(order.quantity) - int(post_quantity))
+                final_product_quantity = int(post_product.available_quantity)+discrise_order_quantity
+                final_order_price = int(order.price) - (int(post_product.product_price)*discrise_order_quantity)
+
+                product_obj = Product.objects.filter(Product_ID=post_products)
+                product_obj.update(available_quantity=final_product_quantity)
+
+                order_obj = Order.objects.filter(order_ID=kwargs['id'])
+                order_obj.update(customer=post_customer,
+                            product=post_product,
+                            status=post_status)
+                return redirect('list-order')
+
+            if (int(order.quantity) < int(post_quantity)):
+                print("4")
+                discrise_order_quantity = (int(post_quantity) - int(order.quantity))
+                final_product_quantity = int(post_product.available_quantity)-discrise_order_quantity
+                final_order_price = int(order.price) + (int(post_product.product_price)*discrise_order_quantity)
+                
+                product_obj = Product.objects.filter(Product_ID=post_products)
+                product_obj.update(available_quantity=final_product_quantity)
+
+                order_obj = Order.objects.filter(order_ID=kwargs['id'])
+                order_obj.update(customer=post_customer,
+                            product=post_product,
+                            quantity=post_quantity,
+                            price=final_order_price,
+                            status=post_status)
+                return redirect('list-order')
+
+        if int(post_product.available_quantity) <= int(post_quantity):
+            print("5")
+            if (int(order.quantity) > int(post_quantity)):
+                print("6")
+                discrise_order_quantity = (int(order.quantity) - int(post_quantity))
+                final_product_quantity = int(post_product.available_quantity)+discrise_order_quantity
+                final_order_price = int(order.price) - (int(post_product.product_price)*discrise_order_quantity)
+
+                product_obj = Product.objects.filter(Product_ID=post_products)
+                product_obj.update(available_quantity=final_product_quantity)
+
+                order_obj = Order.objects.filter(order_ID=kwargs['id'])
+                order_obj.update(customer=post_customer,
+                            product=post_product,
+                            quantity=post_quantity,
+                            price=final_order_price,
+                            status=post_status)
+                return redirect('list-order')
+
+            if (int(order.quantity) < int(post_quantity)):
+                discrise_order_quantity = (int(post_quantity) - int(order.quantity))
+                print("7")
+                if int(post_product.available_quantity) > 0:
+                    final_product_quantity = int(post_product.available_quantity)-discrise_order_quantity
+                    final_order_price = int(order.price) + (int(post_product.product_price)*discrise_order_quantity)
+                    
+                    product_obj = Product.objects.filter(Product_ID=post_products)
+                    product_obj.update(available_quantity=final_product_quantity)
+
+                    order_obj = Order.objects.filter(order_ID=kwargs['id'])
+                    order_obj.update(customer=post_customer,
+                                product=post_product,
+                                quantity=post_quantity,
+                                price=final_order_price,
+                                status=post_status)
+                    return redirect('list-order')
+
+                messages.error(request, f"Chack selected Product Stack, because your selected product '{post_product.Product_Name}' have '{post_product.available_quantity}' in stack")
+                return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+                
+
+        messages.error(request, f"Chack selected Product Stack, because your selected product '{post_product.Product_Name}' have '{post_product.available_quantity}' in stack")
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+        

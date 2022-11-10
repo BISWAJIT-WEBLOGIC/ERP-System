@@ -5,6 +5,21 @@
 <link rel="stylesheet" type="text/css" href="{% static 'css/all_list.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'css/django_messages.css' %}">
 
+<style>
+	.status_OFD {
+		color: rgb(2, 88, 238);
+	}
+
+	.status_IP {
+		color: rgb(233, 191, 37);
+	}
+	.status_C {
+		color: rgb(12, 241, 12);
+	}
+	.status_R {
+		color: rgb(233, 37, 37);
+	}
+</style>
 
 <section class="ftco-section">
 	<div class="container">
@@ -32,6 +47,7 @@
 								<th style="font-size: 15px;">Product Name</th>
 								<th style="font-size: 15px;">Order Quantity</th>
 								<th style="font-size: 15px;">Order Price</th>
+								<th style="font-size: 15px;">Status</th>
 								<td style="font-size: 15px;">Update</td>
 							</tr>
 						</thead>
@@ -45,6 +61,15 @@
 								<td>{{order.product}}</td>
 								<td>{{order.quantity}}</td>
 								<td>{{order.price}}</td>
+								{% if order.status == 'OFD' %}
+								<td class="status_{{order.status}}">Out For Delivery</td>
+								{% elif order.status == 'IP' %}
+								<td class="status_{{order.status}}">In-Progress</td>
+								{% elif order.status == 'C' %}
+								<td class="status_{{order.status}}">Complete</td>
+								{% else %}
+								<td class="status_{{order.status}}">Return</td>
+								{% endif %}
 								<td><a href="{% url 'update-order' id=order.order_ID %}"><i class="fa fa-edit"
 									style="font-size:24px;padding-left:10px;color:rgb(3, 171, 249)"></i></a>
 							</tr>

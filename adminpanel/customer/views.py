@@ -51,9 +51,8 @@ class AddCustomer(View):
         
         post_name = request.POST['name']
         post_email = request.POST['email']
-        post_t_p_amount = request.POST['t_p_amount']
         post_address = request.POST['address']
-        Customer.objects.create(name=post_name,email=post_email,totalpurchaseamount=post_t_p_amount,
+        Customer.objects.create(name=post_name,email=post_email,
                                 ph_number=post_p_number,address=post_address)
         return redirect('list-customer')
     
@@ -89,7 +88,6 @@ class UpdateCustomer(View):
         
         customer.name = request.POST['name']
         customer.email = request.POST['email']
-        customer.totalpurchaseamount = request.POST['t_p_amount']
         customer.ph_number = post_p_number
         customer.address = request.POST['address']
         customer.save()
