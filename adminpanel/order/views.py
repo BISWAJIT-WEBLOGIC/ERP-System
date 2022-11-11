@@ -1,14 +1,17 @@
-from django.shortcuts import redirect, render
-from django.views import View
-from .models import Order
+import json
+
 from django.contrib import messages
-from django.http import HttpResponseRedirect
-from django.http import Http404
 from django.contrib.auth.decorators import login_required
+from django.http import Http404, HttpResponseRedirect
+from django.shortcuts import redirect, render
 from django.utils.decorators import method_decorator
+from django.views import View
+
 from adminpanel.customer.models import Customer
 from adminpanel.inventory.models import Product
-import json
+
+from .models import Order
+
 
 def check_user_able_to_see_page(c_t):
 
@@ -56,7 +59,6 @@ class AddOrder(View):
         post_product = request.POST['product']
         post_customer = request.POST['customer']
         post_quantity = request.POST['quantity']
-        post_status = request.POST['status']
 
         post_product_obj = Product.objects.get(Product_ID=post_product)
         if int(post_product_obj.available_quantity) >= int(post_quantity):
@@ -72,7 +74,7 @@ class AddOrder(View):
 
             product_obj.update(available_quantity=total_available_quantity)
             Order.objects.create(customer=post_customer,product=post_product_obj,
-                                quantity=post_quantity,price=total_price,status=post_status)
+                                quantity=post_quantity,price=total_price)
             return redirect('list-order')
         
         messages.error(request, f'''Chack selected Product Stack, because your selected product " {post_product_obj.Product_Name} " have " {post_product_obj.available_quantity} " in stack''')
@@ -95,9 +97,7 @@ class UpdateOrder(View):
         products = Product.objects.all()
         customer = Customer.objects.all()
         orders = Order.objects.filter(order_ID=self.kwargs['id'])
-        order = Order.objects.get(order_ID=self.kwargs['id'])
         product = Product.objects.filter(Product_ID=order.product.Product_ID)
-        print(product.__dict__)
         context ={
             'all_product':products,
             'all_customer':customer,
@@ -190,6 +190,21 @@ class UpdateOrder(View):
                             status=post_status)
                 return redirect('list-order')
 
+            if (int(order.quantity) == int(post_quantity)):
+                print("3")
+                discrise_order_quantity = (int(order.quantity) - int(post_quantity))
+                final_product_quantity = int(post_product.available_quantity)+discrise_order_quantity
+                final_order_price = int(order.price) - (int(post_product.product_price)*discrise_order_quantity)
+
+                product_obj = Product.objects.filter(Product_ID=post_products)
+                product_obj.update(available_quantity=final_product_quantity)
+
+                order_obj = Order.objects.filter(order_ID=kwargs['id'])
+                order_obj.update(customer=post_customer,
+                            product=post_product,
+                            status=post_status)
+                return redirect('list-order')
+            
             if (int(order.quantity) < int(post_quantity)):
                 discrise_order_quantity = (int(post_quantity) - int(order.quantity))
                 print("7")

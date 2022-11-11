@@ -47,6 +47,15 @@
                         <div class="digital-add needs-validation">
                             <form method="post" action="">
                                 {% csrf_token %}
+
+                                {% if request.resolver_match.url_name == 'update-order' %}
+                                <div class="form-group">
+                                    <label class="col-form-label"><span>*</span>Product</label>
+                                    <select class="custom-select" id="myDropdown4" name="product">
+                                        <option value="{{order.product.Product_ID}}">{{order.product}}</option>
+                                    </select>
+                                </div>
+                                {% else %}
                                 <div class="form-group">
                                     <label class="col-form-label"><span>*</span>Product</label>
                                     <select class="custom-select" id="myDropdown1" required="" name="product">
@@ -56,6 +65,16 @@
                                         {% endfor %}
                                     </select>
                                 </div>
+                                {% endif %}
+                                
+                                {% if request.resolver_match.url_name == 'update-order' %}
+                                <div class="form-group">
+                                    <label class="col-form-label"><span>*</span>Customer</label>
+                                    <select class="custom-select" id="myDropdown2" required="" name="customer">
+                                        <option value="{{order.customer.customer_Id}}">{{order.customer}}</option>
+                                    </select>
+                                </div>
+                                {% else %}
                                 <div class="form-group">
                                     <label class="col-form-label"><span>*</span>Customer</label>
                                     <select class="custom-select" id="myDropdown2" required="" name="customer">
@@ -65,6 +84,9 @@
                                         {% endfor %}
                                     </select>
                                 </div>
+                                {% endif %}
+
+                                {% if request.resolver_match.url_name == 'update-order' %}
                                 <div class="form-group">
                                     <label class="col-form-label"><span>*</span>Product Status</label>
                                     <select class="custom-select" id="myDropdown3" required="" name="status">
@@ -75,12 +97,14 @@
                                         <option value="R">Return</option>
                                     </select>
                                 </div>
+                                {% endif %}
                                 <div class="form-group">
                                     <label for="validationCustomtitle" class="col-form-label pt-0"><span>*</span>
                                         Order Quantity</label>
                                     <input class="form-control" name='quantity' value="{{order.quantity}}"
                                         id="my-input" type="number" min="0" required="">
                                 </div>
+                                
                                 <div class="form-group mb-0">
                                     <div class="product-buttons text-center">
                                         <input class="btn btn-primary " type="submit" value="Upload">
@@ -107,7 +131,9 @@
     let product_obj = Object.values(product_data[0]);
 
     var dataNode = document.getElementById('myDropdown1');
-    dataNode.value = orders_obj[3]
+    if (dataNode){
+         dataNode.value = orders_obj[3]
+         }
 
     var dataNode2 = document.getElementById('myDropdown2');
     dataNode2.value = orders_obj[2]
@@ -115,10 +141,29 @@
     var dataNode2 = document.getElementById('myDropdown3');
     dataNode2.value = orders_obj[5]
 
+    var dataNode4 = document.getElementById('myDropdown4');
+    dataNode4.value = product_obj[0]
+
     var myCalculatedValue = (+orders_obj[4]) + (+product_obj[2]);
 
     const myInput = document.getElementById("my-input");
     myInput.setAttribute("max", myCalculatedValue);
 
+    
+    var myinput = document.getElementById("my-input");
+    myinput.addEventListener("invalid", validate);
+    myinput.addEventListener("keyup", validate);
+
+    function validate() {
+        var val = parseFloat(this.value);
+        var max = parseFloat(this.max);
+        
+        if (val > max) {
+            this.setCustomValidity('Chack selected Product Stack, because your selected product "' + product_obj[1] + '",  have total stack '+ max);
+        } else {
+            this.setCustomValidity("");
+        }
+    }
+    
 </script>
 {% endblock content %}
